@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
 
   usuario: string = "";
   password: string = "";
+
+  log: boolean = true;
   
 
   constructor() {
@@ -28,7 +30,9 @@ export class LoginComponent implements OnInit {
     this.msjProceso=true;
     if(this.usuario !== this.usuarios[0] || this.password !== this.usuarios[1]){
       this.msjSesion="Inicio de sesion incorrecto";
+      this.log=false;
     }else{
+      this.log=true;
       this.msjSesion="Inicio correcto";
     }
     console.log(this.usuario)

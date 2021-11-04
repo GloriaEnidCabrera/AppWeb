@@ -51,6 +51,9 @@
     background: none;
 }
 
-.msjIn{
-    color: #ffffffff    ;
+.tx-rojo{
+    color:red;
+}
+.tx-verde{
+    color: greenyellow;
 }

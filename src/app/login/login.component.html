@@ -4,7 +4,7 @@
     <h1 class="form-title">ACCESO</h1>
     <input type="text" placeholder="Usuario" [(ngModel)]="usuario" name="user">
     <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="pass">
-    <label class="msjIn" *ngIf="msjProceso">
+    <label  *ngIf="msjProceso" [ngClass]="{'tx-rojo':log===false, 'tx-verde':log===true}">
         {{ msjSesion }}
     </label>
     
