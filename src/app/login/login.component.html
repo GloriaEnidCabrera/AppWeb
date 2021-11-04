@@ -2,11 +2,16 @@
 
   <form action="app.component.html" class="form-box">
     <h1 class="form-title">ACCESO</h1>
-    <input type="text" placeholder="Usuario">
-    <input type="password" placeholder="Contraseña">
-    <button>
-      Iniciar
-    </button>
+    <input type="text" placeholder="Usuario" [(ngModel)]="usuario" name="user">
+    <input type="password" placeholder="Contraseña" [(ngModel)]="password" name="pass">
+    <label class="msjIn" *ngIf="msjProceso">
+        {{ msjSesion }}
+    </label>
+    
+    <div class="btn" (click)="login()">
+      Iniciar   
+    </div>
+    
   </form>
 
 </div>

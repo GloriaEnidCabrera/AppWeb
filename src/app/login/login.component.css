@@ -17,7 +17,7 @@
 }
 
 .form-box input[type="text"],
-.form-box button,
+.form-box .btn,
 .form-box input[type="password"]{
     border: 0;
     background: none;
@@ -40,13 +40,17 @@
 
 }
 
-.form-box button {
+.form-box .btn {
     border: 0;
     background: #034657;
     cursor: pointer;
     border: 2px solid #37ccfa;
 }
 
-.form-box button:hover{
+.form-box .btn:hover{
     background: none;
+}
+
+.msjIn{
+    color: #ffffffff    ;
 }
