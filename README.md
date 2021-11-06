@@ -11,9 +11,9 @@ Gloria Cabrera - Arquitecto
 Desarrollador 1
 Desarrollador 2
 
-* Falta trello
-* Enlace video
-* Enlace github
+* https://trello.com/b/wMg8MnHX/grupo-7
+* https://youtu.be/8G3wJsCDHZ8
+* https://github.com/GloriaEnidCabrera/AppWeb.git
 
 
 # AppWeb
