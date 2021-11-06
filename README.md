@@ -1,3 +1,21 @@
+# Anotaciones grupo27
+
+
+
+# Roles
+## Sprint 1
+Cristhian Parra - Product owner
+Dairon Perilla - Scrum Master
+Nestor Maecha - QA
+Gloria Cabrera - Arquitecto 
+Desarrollador 1
+Desarrollador 2
+
+* Falta trello
+* Enlace video
+* Enlace github
+
+
 # AppWeb
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
