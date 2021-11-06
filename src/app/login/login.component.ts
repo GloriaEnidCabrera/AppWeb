@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  private usuarios: string[] = ['admin', 'admin123'];
+  private usuarios: string[] = ['admin', 'prueba'];
+  private claves: string[] = ['admin123', '123'];
   msjProceso: boolean = false;
 
   msjSesion: string = "Inicio correcto";
@@ -28,15 +29,24 @@ export class LoginComponent implements OnInit {
   login() {
 
     this.msjProceso=true;
-    if(this.usuario !== this.usuarios[0] || this.password !== this.usuarios[1]){
+    for ( let i=0; i<this.usuarios.length; i++)
+    {
+      if(this.usuario == this.usuarios[i] && this.password == this.claves[i]){
+        this.log=true;
+        break;
+      }
+      else{
+        this.log=false;
+      }
+    }
+    if(!this.log){
       this.msjSesion="Inicio de sesion incorrecto";
-      this.log=false;
     }else{
-      this.log=true;
       this.msjSesion="Inicio correcto";
     }
     console.log(this.usuario)
     console.log(this.password)
+    console.log(this.usuarios.length)
   }
 
 
