@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Acceso } from '../acceso';
-import { ACCESOS } from '../mock-acceso';
+import { Acceso } from '../../acceso';
+import { ACCESOS } from '../../mock-acceso';
 
 @Component({
   selector: 'app-login',
