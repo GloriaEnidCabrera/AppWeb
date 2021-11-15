@@ -7,14 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  private usuarios: string[] = ['admin', 'admin123'];
-  private usuariosls: any[] = [
-    ['admin', 'admin123'],
-    ['admin2', 'admin3'],
-    ['admin3', 'admin2'],
-    ['admin4', 'admin13'],
-    ['admin5', 'admin321']
-  ];
+
+  private usuarios: string[] = ['admin', 'prueba'];
+  private claves: string[] = ['admin123', '123'];
   msjProceso: boolean = false;
 
   msjSesion: string = "Inicio correcto";
@@ -34,35 +29,25 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    
-    
-    this.msjProceso = true;
-    for (let p of this.usuariosls) {
-      
-      let local: boolean = false;
-      if (this.usuario !== p[0] || this.password !== p[1]) {
-        this.msjSesion = "Inicio de sesion incorrecto";
-        local = false;
-      } else {
-        local = true;
-        this.msjSesion = "Inicio correcto";
-        this.log = local;
+    this.msjProceso=true;
+    for ( let i=0; i<this.usuarios.length; i++)
+    {
+      if(this.usuario == this.usuarios[i] && this.password == this.claves[i]){
+        this.log=true;
         break;
       }
-      this.log = local;
-      
+      else{
+        this.log=false;
+      }
     }
-    
-
-    // if (this.usuario !== this.usuarios[0] || this.password !== this.usuarios[1]) {
-    //   this.msjSesion = "Inicio de sesion incorrecto";
-    //   this.log = false;
-    // } else {
-    //   this.log = true;
-    //   this.msjSesion = "Inicio correcto";
-    // }
-    // console.log(this.usuario)
-    // console.log(this.password)
+    if(!this.log){
+      this.msjSesion="Inicio de sesion incorrecto";
+    }else{
+      this.msjSesion="Inicio correcto";
+    }
+    console.log(this.usuario)
+    console.log(this.password)
+    console.log(this.usuarios.length)
   }
 
 
