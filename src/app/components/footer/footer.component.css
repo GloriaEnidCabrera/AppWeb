@@ -5,7 +5,8 @@
     align-items: center;
 }
 
-.footer-dashboard p {
+.footer-dashboard  p{
+    bottom: 0px;
     margin-top: 20px;
     color: #fff;
     font-size: 12px;

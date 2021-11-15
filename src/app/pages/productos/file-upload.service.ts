@@ -19,7 +19,16 @@ export class FileUploadService {
 
   // Retorna un objeto observable
   upload(file: any): Promise<any[]> {
+    
     return new Promise<any[]>((resolve, reject) => {
+      this.http.delete<any>(
+        this.baseApiUrl,{ observe: 'response' }).subscribe(
+          (response: any) => {
+            let resaux = [];
+            resaux[0] = response.status;
+            this.resultados.push(resaux);
+          }
+        );
       //leyendo el contenido
       var reader = new FileReader();
       reader.onloadend = (e) => {
@@ -60,4 +69,6 @@ export class FileUploadService {
       reader.readAsText(file);
     });
   }
+
+
 }
