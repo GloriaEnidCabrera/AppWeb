@@ -1,0 +1,65 @@
+.content-wrapper {
+    min-width: 416px;
+}
+
+.bg-fondo {
+    background-color: #FFF3F0;
+}
+
+.bg-indigo {
+    background-color: #4b0374;
+    color: white;
+}
+
+.bg-indigo-x {
+    background-color: #4b0374;
+    color: white;
+}
+
+.modify-center {
+    width: 420px;
+    display: flex;
+    justify-content: center;
+}
+.form-title {
+    height: 150px;
+}
+
+.content-info {
+    padding: 2em;
+    background-color: rgb(31, 31, 47);
+}
+
+.content-info h5{
+    color: #fff;
+}
+
+.container-img-1 {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-img-1 img {
+    max-width: 50%;
+}
+
+.container-img-2 {
+    position: relative;
+    top: 50px;
+    left: 0px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-img-2 img {
+    max-width: 35%;
+}
+
+.shadow-login {
+    box-shadow: 0 0 20px 0 rgba(255, 255, 255, .2);
+}
