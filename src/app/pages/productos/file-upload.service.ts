@@ -29,24 +29,31 @@ export class FileUploadService {
         let separados = lines.split("\n");
 
         for (let lineaactual of separados) {
-          lineaactual.replace(";", ",");
-          let columnas = lineaactual.split(",", 4);
-          this.http.post(
-            this.baseApiUrl,
-            {
-              nombre_producto: columnas[0],
-              nitproveedor: columnas[1],
-              precio_compra: columnas[2],
-              ivacompra: columnas[3],
-              precio_venta: columnas[4]
-            },
-            { observe: 'response' }).subscribe(
-              (response: any) => {
-                let resaux = [];
-                resaux[0] = response.status;
-                this.resultados.push(resaux);
-              }
-            );
+          for (let i = 0; i < 5; i++) {
+            lineaactual = lineaactual.replace(";", ",");
+          }
+          lineaactual = lineaactual.replace("\r", "");
+          let columnas = lineaactual.split(",", 6);
+          console.log(columnas)
+          if (columnas.length > 5) {
+            this.http.post(
+              this.baseApiUrl,
+              {
+                codigoproducto: columnas[0],
+                nombreproducto: columnas[1],
+                nitproveedor: columnas[2],
+                preciocompra: columnas[3],
+                ivacompra: columnas[4],
+                precioventa: columnas[5]
+              },
+              { observe: 'response' }).subscribe(
+                (response: any) => {
+                  let resaux = [];
+                  resaux[0] = response.status;
+                  this.resultados.push(resaux);
+                }
+              );
+          }
         }
         //console.log(this.resultados);
         resolve(this.resultados);
