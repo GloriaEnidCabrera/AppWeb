@@ -36,11 +36,18 @@ export class ProductosComponent implements OnInit {
     this.file = event.target.files[0];
   }
 
+  msjProceso: number = -1;
+
   // Cuandop haga click, iniciar proceso de envio
   async onUpload() {
-    console.log(this.file);
-    this.resultados = await this.fileUploadService.upload(this.file);
-    console.log(this.resultados);
+    if (this.file == null) {
+      this.msjProceso = 0;
+    }else {
+      this.msjProceso = 1;
+      console.log(this.file);
+      this.resultados = await this.fileUploadService.upload(this.file);
+      console.log(this.resultados);
+    }
   }
 
 }
