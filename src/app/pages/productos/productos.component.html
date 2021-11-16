@@ -2,7 +2,7 @@
   <h1>PRODUCTOS</h1>
   <p>Seleccione el archivo que contiene los productos</p>
   <div class="text-center d-flex">
-    <input class="form-control" type="file" (change)="onChange($event)">
+    <input class="form-control" type="file" (change)="onChange($event)" accept=".csv">
 
     <button (click)="onUpload()" class="btn btn-primary">
       Cargar
