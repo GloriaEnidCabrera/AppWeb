@@ -18,122 +18,122 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class ProductoController {
 
-	@Autowired
-	ProductoRepository productoRepository;
+    @Autowired
+    ProductoRepository productoRepository;
 
-	@GetMapping("/productos")
-	public ResponseEntity<List<Producto>> getProductos(@RequestParam(required = false) String nombreProducto) {
+    @GetMapping("/productos")
+    public ResponseEntity<List<Producto>> getProductos(@RequestParam(required = false) String nombreProducto) {
 
-		try {
-			List<Producto> products = new ArrayList<>();
+        try {
+            List<Producto> products = new ArrayList<>();
 
-			if (nombreProducto == null) {
-				productoRepository.findAll().forEach(products::add);
-			} else {
-				productoRepository.findByNombreProducto(nombreProducto).forEach(products::add);
-			}
+            if (nombreProducto == null) {
+                productoRepository.findAll().forEach(products::add);
+            } else {
+                productoRepository.findByNombreProducto(nombreProducto).forEach(products::add);
+            }
 
-			if (products.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
+            if (products.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
 
-			return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
+            return new ResponseEntity<List<Producto>>(products, HttpStatus.OK);
 
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-	}
+    }
 
-	@GetMapping("/productos/{id]")
-	public ResponseEntity<Producto> getProductoById(@PathVariable("id") String id) {
-		Optional<Producto> producto = productoRepository.findById(id);
-		if (producto.isPresent()) {
-			return new ResponseEntity<Producto>(producto.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    @GetMapping("/productos/{id]")
+    public ResponseEntity<Producto> getProductoById(@PathVariable("id") String id) {
+        Optional<Producto> producto = productoRepository.findById(id);
+        if (producto.isPresent()) {
+            return new ResponseEntity<Producto>(producto.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
-	@GetMapping("/productos/{codigoProducto}")
-	public ResponseEntity<List<Producto>> getProductoByCode(@PathVariable("codigoProducto") Long codigoProducto) {
+    @GetMapping("/productos/{codigoProducto}")
+    public ResponseEntity<List<Producto>> getProductoByCode(@PathVariable("codigoProducto") Long codigoProducto) {
 
-		try {
-			List<Producto> productos = productoRepository.findByCodigoProducto(codigoProducto);
+        try {
+            List<Producto> productos = productoRepository.findByCodigoProducto(codigoProducto);
 
-			if (productos.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            if (productos.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-			}
+            }
 
-			return new ResponseEntity<>(productos, HttpStatus.OK);
+            return new ResponseEntity<>(productos, HttpStatus.OK);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-	}
+    }
 
-	@PostMapping("/productos")
-	public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
-	Logger logger = Logger.getLogger("Mylog");
-		try {
-			logger.log(Level.WARNING, "producto: "+producto);
-			Producto _producto = (Producto) productoRepository.save(
-					new Producto(producto.getCodigoProducto(), producto.getIvaProducto(), producto.getNitProvedor(),
-							producto.getNombreProducto(), producto.getPrecioVenta(), producto.getPrecioCompra()));
+    @PostMapping("/productos")
+    public ResponseEntity<Producto> createProducto(@RequestBody Producto producto) {
+        Logger logger = Logger.getLogger("Mylog");
+        logger.log(Level.WARNING, producto.toString());
+        try {
+            Producto _producto = productoRepository.save(
+                    new Producto(producto.getCodigoProducto(), producto.getIvaProducto(), producto.getNitProvedor(),
+                            producto.getNombreProducto(), producto.getPrecioVenta(), producto.getPrecioCompra()));
+            logger.log(Level.WARNING, producto.toString());
+            return new ResponseEntity<Producto>(_producto, HttpStatus.OK);
 
-			return new ResponseEntity<Producto>(_producto, HttpStatus.OK);
+        } catch (Exception e) {
 
-		} catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    @PutMapping("/productos/{id}")
+    public ResponseEntity<Producto> updateProducto(@PathVariable("id") String id, @RequestBody Producto producto) {
 
-	@PutMapping("/productos/{id}")
-	public ResponseEntity<Producto> updateProducto(@PathVariable("id") String id, @RequestBody Producto producto) {
+        Optional<Producto> productoData = productoRepository.findById(id);
 
-		Optional<Producto> productoData = productoRepository.findById(id);
+        if (productoData.isPresent()) {
+            Producto _producto = productoData.get();
+            _producto.setCodigoProducto(producto.getCodigoProducto());
+            _producto.setIvaProducto(producto.getIvaProducto());
+            _producto.setNitProvedor(producto.getNitProvedor());
+            _producto.setNombreProducto(producto.getNombreProducto());
+            _producto.setPrecioVenta(producto.getPrecioVenta());
+            _producto.setPrecioCompra(producto.getPrecioCompra());
 
-		if (productoData.isPresent()) {
-			Producto _producto = productoData.get();
-			_producto.setCodigoProducto(producto.getCodigoProducto());
-			_producto.setIvaProducto(producto.getIvaProducto());
-			_producto.setNitProvedor(producto.getNitProvedor());
-			_producto.setNombreProducto(producto.getNombreProducto());
-			_producto.setPrecioVenta(producto.getPrecioVenta());
-			_producto.setPrecioCompra(producto.getPrecioCompra());
+            return new ResponseEntity<>(productoRepository.save(_producto), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-			return new ResponseEntity<>(productoRepository.save(_producto), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+    }
 
-	}
+    @DeleteMapping("/productos/{id}")
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") String id) {
+        try {
 
-	@DeleteMapping("/productos/{id}")
-	public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") String id) {
-		try {
+            productoRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
 
-			productoRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
 
-		} catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-
-	@DeleteMapping("/productos")
-	public ResponseEntity<HttpStatus> deleteAllProduct() {
-		try {
-			productoRepository.deleteAll();
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    @DeleteMapping("/productos")
+    public ResponseEntity<HttpStatus> deleteAllProduct() {
+        try {
+            productoRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

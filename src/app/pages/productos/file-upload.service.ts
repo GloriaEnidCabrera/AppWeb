@@ -27,6 +27,7 @@ export class FileUploadService {
         let lines = reader.result as string;
 
         let separados = lines.split("\n");
+
         for (let lineaactual of separados) {
           for (let i = 0; i < 5; i++) {
             lineaactual = lineaactual.replace(";", ",");
@@ -38,12 +39,12 @@ export class FileUploadService {
             this.http.post(
               this.baseApiUrl,
               {
-                codigoproducto: columnas[0],
-                nombreproducto: columnas[1],
-                nitproveedor: columnas[2],
-                preciocompra: columnas[3],
-                ivacompra: columnas[4],
-                precioventa: columnas[5]
+                codigoProducto: columnas[0],
+                ivaProducto: columnas[4],
+                nitProveedor: columnas[2],
+                nombreProducto: columnas[1],
+                precioCompra: columnas[3],
+                precioVenta: columnas[5]
               },
               { observe: 'response' }).subscribe(
                 (response: any) => {
@@ -54,7 +55,7 @@ export class FileUploadService {
               );
           }
         }
-        console.log(this.resultados);
+        //console.log(this.resultados);
         resolve(this.resultados);
       };
       reader.readAsText(file);

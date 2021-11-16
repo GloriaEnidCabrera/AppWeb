@@ -1,18 +1,28 @@
 <div class=" content">
-    <h1>PRODUCTOS</h1>
-    <p>Seleccione el archivo que contiene los productos</p>
-    <div class="text-center d-flex">
-      <input class="form-control" type="file" (change)="onChange($event)">
-  
-      <button (click)="onUpload()" class="btn btn-primary">
-        Cargar
-      </button>
-      {{recibido}}
-    </div>
-    <div class="container">
-      <h3 *ngFor="let dato of resultados; let i = index">
-        Dato {{i}} obtuvo codigo {{dato[0]}}
-      </h3>
-    </div>
-  
+  <h1>PRODUCTOS</h1>
+  <p>Seleccione el archivo que contiene los productos</p>
+  <div class="text-center d-flex">
+    <input class="form-control" type="file" (change)="onChange($event)" accept=".csv">
+
+    <button (click)="onUpload()" class="btn btn-primary">
+      Cargar
+    </button>
+    {{recibido}}
   </div>
+  <!-- ALERTAS -->
+  <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert">
+    <i class="fas fa-check"></i> Archivo cargado exitosamente.
+  </div>
+  <div *ngIf="msjProceso==0" class="alert alert-danger mt-3" role="alert">
+    <i class="fas fa-times"></i> Por favor, seleccione un archivo.
+  </div>
+  <div *ngIf="msjProceso==9" class="alert alert-warning mt-3" role="alert">
+    <i class="fas fa-exclamation"></i> Datos leídos inválidos.
+  </div>
+  <div class="container">
+    <h3 *ngFor="let dato of resultados; let i = index">
+      Dato {{i}} obtuvo codigo {{dato[0]}}
+    </h3>
+  </div>
+
+</div>

@@ -86,4 +86,17 @@ public class Producto {
     public void setPrecioCompra(double precioCompra) {
         this.precioCompra = precioCompra;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id='" + id + '\'' +
+                ", codigoProducto=" + codigoProducto +
+                ", ivaProducto=" + ivaProducto +
+                ", nitProvedor=" + nitProvedor +
+                ", nombreProducto='" + nombreProducto + '\'' +
+                ", precioVenta=" + precioVenta +
+                ", precioCompra=" + precioCompra +
+                '}';
+    }
 }
