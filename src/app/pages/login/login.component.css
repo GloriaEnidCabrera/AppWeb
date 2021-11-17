@@ -31,6 +31,7 @@
 }
 
 .content-info h5{
+    min-width: 356px;
     color: #fff;
 }
 
