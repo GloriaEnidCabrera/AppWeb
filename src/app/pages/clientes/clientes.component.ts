@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ClientService } from './client.service';
 
 @Component({
   selector: 'app-clientes',
@@ -8,78 +9,84 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ClientesComponent implements OnInit {
 
-  flag_id: boolean = false;
   flag_us: boolean = false;
   flag_name: boolean = false;
   flag_ps: boolean = false;
   flag_email: boolean = false;
+  flag_table: boolean = false;
 
   crud!: String;
 
+email ="";
+name = "";
+password = "";
+username = "";
 
-  constructor(private cabecera: ActivatedRoute) {
+usuarios!:any;
+
+
+  constructor(private cabecera: ActivatedRoute, private peticiones: ClientService) {
     this.cabecera.params.subscribe(params => {
       this.crud = params['crud'];
-      console.log(this.crud+"crud");
 
       switch (this.crud) {
-        case "create":
-          console.log("create");
-          this.flag_id = true;
+        case "create": case "update": default:
           this.flag_us = true;
           this.flag_name = true;
           this.flag_ps = true;
           this.flag_email = true;
           break;
-        case "read":
-          console.log("read");
-          this.flag_id = true;
-          this.flag_us = false;
+        case "read": case "delete":
+          this.flag_us = true;
           this.flag_name = false;
           this.flag_ps = false;
           this.flag_email = false;
-          break;
-        case "update":
-          console.log("update");
-          this.flag_id = true;
-          this.flag_us = true;
-          this.flag_name = true;
-          this.flag_ps = true;
-          this.flag_email = true;
-          break;
-        case "delete":
-          console.log("delete");
-          this.flag_id = true;
-          this.flag_us = false;
-          this.flag_name = false;
-          this.flag_ps = false;
-          this.flag_email = false;
-          break;
-        default:
-          console.log("default");
-          this.flag_id = true;
-          this.flag_us = true;
-          this.flag_name = true;
-          this.flag_ps = true;
-          this.flag_email = true;
           break;
       }
-  
+
     });
-
-    
-
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-   
 
-    
+  clic() {
+    let body = {
+      "email": this.email,
+      "nombre_completo": this.name,
+      "password": this.password,
+      "username": this.username
+    }
+    switch (this.crud) {
+      case "create":
+        this.peticiones.crear(body).subscribe(data => {
+          console.log(body);
+          console.log(data);
+        });
+        break;
+      case "read":
+        // this.peticiones.buscar(this.username).subscribe(data => {
+        this.peticiones.buscarTodos().subscribe(data => {
+          console.log(data);
+          this.usuarios = data;
+          this.flag_table = true;
+
+
+        });
+        break;
+      case "update":
+        this.peticiones.actualizar(body).subscribe(data => {
+          console.log(data);
+        });
+        break;
+      case "delete":
+        this.peticiones.borrar(this.username).subscribe(data => {
+          console.log(data);
+        });
+        break;
+      default:
+        break;
+    }
   }
-
-
-
-
 
 }
