@@ -39,12 +39,13 @@ export class FileUploadService {
             this.http.post(
               this.baseApiUrl,
               {
-                codigoProducto: columnas[0],
-                ivaProducto: columnas[4],
-                nitProveedor: columnas[2],
-                nombreProducto: columnas[1],
-                precioCompra: columnas[3],
-                precioVenta: columnas[5]
+
+                codigoproducto: columnas[0],
+                nombreproducto: columnas[1],
+                nitproveedor: columnas[2],
+                preciocompra: columnas[3],
+                ivacompra: columnas[4],
+                precioventa: columnas[5]
               },
               { observe: 'response' }).subscribe(
                 (response: any) => {
