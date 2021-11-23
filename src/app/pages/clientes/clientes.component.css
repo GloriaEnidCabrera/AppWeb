@@ -2,7 +2,7 @@
     min-width: 471px;
 }
 
-.clients-wrapper > *{
+.clients-wrapper{
     color: #fff;
 }
 
@@ -43,4 +43,15 @@
 .row-4 > * {
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.config-table {
+    background-color: rgb(250, 250, 252) !important;
+    box-shadow: 0 0 20px 0 rgba(255, 255, 255, .2);
+    color: #fff!important;
+    
+}
+
+.config-table > * {
+    color: #fff!important;
 }
