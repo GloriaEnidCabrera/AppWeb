@@ -12,6 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 import { ComponentsModule } from "./components/components.module";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
+import { ClientesComponent } from "./pages/clientes/clientes.component";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.compon
     AdminLayoutComponent,
     LoginComponent,
     ProductosComponent,
+    ClientesComponent
   ],
 
   imports: [

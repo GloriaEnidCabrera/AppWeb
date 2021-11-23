@@ -27,99 +27,99 @@ import com.roca12.misiontic2022.spring.data.mongodb.repository.UsuarioRepository
 @RequestMapping("/api")
 public class UsuarioController {
 
-	@Autowired
-	UsuarioRepository usuarioRepository;
+  @Autowired
+  UsuarioRepository usuarioRepository;
 
-	@GetMapping("/usuarios")
-	public ResponseEntity<List<Usuario>> getAllUsuarios(@RequestParam(required = false) String username) {
-		try {
-			List<Usuario> usuarios = new ArrayList<Usuario>();
+  @GetMapping("/usuarios")
+  public ResponseEntity<List<Usuario>> getAllUsuarios(@RequestParam(required = false) String username) {
+    try {
+      List<Usuario> usuarios = new ArrayList<Usuario>();
 
-			if (username == null) {
-				usuarioRepository.findAll().forEach(usuarios::add);
-			} else {
-				usuarioRepository.findByUsername(username).forEach(usuarios::add);
-			}
+      if (username == null) {
+        usuarioRepository.findAll().forEach(usuarios::add);
+      } else {
+        usuarioRepository.findByUsername(username).forEach(usuarios::add);
+      }
 
-			if (usuarios.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
+      if (usuarios.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
 
-			return new ResponseEntity<>(usuarios, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+      return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
-	}
+  }
 
-	@GetMapping("/usuarios/{id}")
-	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") String id) {
-		Optional<Usuario> usuarioData = usuarioRepository.findById(id);
+  @GetMapping("/usuarios/{id}")
+  public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") String id) {
+    Optional<Usuario> usuarioData = usuarioRepository.findById(id);
 
-		if (usuarioData.isPresent()) {
-			return new ResponseEntity<>(usuarioData.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    if (usuarioData.isPresent()) {
+      return new ResponseEntity<>(usuarioData.get(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
 
-	@PostMapping("/usuarios")
-	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario user) {
-		try {
-			Usuario _usuario = usuarioRepository.save(
-					new Usuario(user.getUsername(), user.getPassword(), user.getNombre_completo(), user.getEmail()));
-			return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+  @PostMapping("/usuarios")
+  public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario user) {
+    try {
+      Usuario _usuario = usuarioRepository.save(
+        new Usuario(user.getUsername(), user.getPassword(), user.getNombre_completo(), user.getEmail()));
+      return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
+    } catch (Exception e) {
+      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
-	@PutMapping("/usuarios/{id}")
-	public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") String id, @RequestBody Usuario user) {
-		Optional<Usuario> usuarioData = usuarioRepository.findById(id);
+  @PutMapping("/usuarios/{id}")
+  public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") String id, @RequestBody Usuario user) {
+    Optional<Usuario> usuarioData = usuarioRepository.findById(id);
 
-		if (usuarioData.isPresent()) {
-			Usuario _usuario = usuarioData.get();
-			_usuario.setUsername(user.getUsername());
-			_usuario.setPassword(user.getPassword());
-			return new ResponseEntity<>(usuarioRepository.save(_usuario), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    if (usuarioData.isPresent()) {
+      Usuario _usuario = usuarioData.get();
+      _usuario.setUsername(user.getUsername());
+      _usuario.setPassword(user.getPassword());
+      return new ResponseEntity<>(usuarioRepository.save(_usuario), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+  }
 
-	@DeleteMapping("/usuarios/{id}")
-	public ResponseEntity<HttpStatus> deleteUsuarios(@PathVariable("id") String id) {
-		try {
-			usuarioRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+  @DeleteMapping("/usuarios/{id}")
+  public ResponseEntity<HttpStatus> deleteUsuarios(@PathVariable("id") String id) {
+    try {
+      usuarioRepository.deleteById(id);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
-	@DeleteMapping("/usuarios")
-	public ResponseEntity<HttpStatus> deleteAllUsuarioss() {
-		try {
-			usuarioRepository.deleteAll();
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+  @DeleteMapping("/usuarios")
+  public ResponseEntity<HttpStatus> deleteAllUsuarioss() {
+    try {
+      usuarioRepository.deleteAll();
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
-	@GetMapping("/usuarios/{username}")
-	public ResponseEntity<List<Usuario>> findByUsername(@PathVariable("username") String username) {
-		try {
-			List<Usuario> usuarios = usuarioRepository.findByUsername(username);
+  @GetMapping("/usuarios/{username}")
+  public ResponseEntity<List<Usuario>> findByUsername(@PathVariable("username") String username) {
+    try {
+      List<Usuario> usuarios = usuarioRepository.findByUsername(username);
 
-			if (usuarios.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(usuarios, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+      if (usuarios.isEmpty()) {
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+      return new ResponseEntity<>(usuarios, HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
 }

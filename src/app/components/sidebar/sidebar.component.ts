@@ -10,7 +10,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Pagina principal', icon: 'fa-home', class: ''},
   { path: '/login', title: 'Iniciar Sesión', icon: 'fa-sign-in-alt', class: ''},
   { path: '/productos', title: 'Productos', icon: 'fa-shopping-cart', class: ''},
-  { path: '/clientes', title: 'Clientes', icon: 'fa-users', class: ''},
+  { path: '/clientes/create', title: 'Clientes', icon: 'fa-users', class: ''},
   { path: '/ventas', title: 'Ventas', icon: 'fa-comment-dollar', class: ''},
   { path: '/reportes', title: 'Reportes', icon: 'fa-chart-area', class: ''},
   //{ path: '/consolidacion', title: 'Consolidacion', icon: 'icon-sound-wave', class: ''},

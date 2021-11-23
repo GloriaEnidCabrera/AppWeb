@@ -1,0 +1,39 @@
+<nav class="nav row align-center">
+    <a class="col nav-link active" aria-current="page" href="#/clientes/create">Crear</a>
+    <a class="col nav-link" href="#/clientes/update">Actualizar</a>
+    <a class="col nav-link" href="#/clientes/delete">Borrar</a>
+    <a class="col nav-link" href="#/clientes/read">Buscar</a>
+</nav>
+
+<div class="content-info ">
+    <h5 class="mt-3 mb-3">Inicio de sesión con nombre de usuario</h5>
+    <div class="form-floating mb-3" *ngIf="flag_id==true">
+        <input type="text" class="form-control" placeholder="Identificación">
+        <label for="user"><i class="fas fa-id-card me-2"></i>Identificación</label>
+    </div>
+    <div class="form-floating mb-3" *ngIf="flag_us==true">
+        <input type="text" class="form-control" placeholder="Usuario">
+        <label for="floatingPassword"><i class="fas fa-user me-2"></i>Usuario</label>
+    </div>
+    <div class="form-floating mb-3" *ngIf="flag_name==true">
+        <input type="text" class="form-control" id="user" placeholder="Nombre completo">
+        <label for="user"><i class="fas fa-passport me-2"></i>Nombre completo</label>
+    </div>
+    <div class="form-floating mb-3" *ngIf="flag_ps==true">
+        <input type="password" class="form-control" placeholder="Constraseña">
+        <label for="floatingPassword"><i class="fas fa-key me-2"></i>Constraseña</label>
+    </div>
+    <div class="form-floating mb-3" *ngIf="flag_email==true">
+        <input type="text" class="form-control" placeholder="Email">
+        <label for="floatingPassword"><i class="fas fa-envelope me-2"></i>Email</label>
+    </div>
+
+
+    <!-- BOTON -->
+    <div class="row align-items-center">
+        <div class="btn btn-primary">
+            {{crud.toUpperCase()}}
+        </div>
+    </div>
+
+</div>
