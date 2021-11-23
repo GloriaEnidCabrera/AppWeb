@@ -1,0 +1,57 @@
+.clients-wrapper {
+    min-width: 471px;
+}
+
+.clients-wrapper{
+    color: #fff;
+}
+
+.bg-indigo {
+    background-color: #4b0374;
+    color: white;
+}
+
+.bg-indigo-x {
+    background-color: #4b0374;
+    color: white;
+}
+
+.content-client > * {
+    padding: .5rem;
+}
+
+.row-1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.row-4 > * {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.config-table {
+    background-color: rgb(250, 250, 252) !important;
+    box-shadow: 0 0 20px 0 rgba(255, 255, 255, .2);
+    color: #fff!important;
+    
+}
+
+.config-table > * {
+    color: #fff!important;
+}
