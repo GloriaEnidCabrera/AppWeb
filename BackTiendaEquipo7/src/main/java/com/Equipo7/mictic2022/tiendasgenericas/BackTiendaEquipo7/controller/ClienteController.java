@@ -83,8 +83,10 @@ public class ClienteController {
 	  }
 
 	  
-	  @PutMapping("/clientes/{id}")
-	  public ResponseEntity<Cliente> updateCliente(@PathVariable("id") String id, @RequestBody Cliente user) {
+	  @PutMapping("/clientes/{cedula}")
+	  public ResponseEntity<Cliente> updateCliente(@PathVariable("cedula") Long cedula, @RequestBody Cliente user) {
+		  List<Cliente> cliente =clienteRepository.findBycedulaCliente(cedula);
+		  String id = cliente.get(0).getId();
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
 
 	    if (clienteData.isPresent()) {
@@ -127,7 +129,6 @@ public class ClienteController {
 	  public ResponseEntity<List<Cliente>> findByCedulaCliente(@PathVariable("cedulaCliente") Long cedulaCliente) {
 	    try {
 	    	List<Cliente> cliente = clienteRepository.findBycedulaCliente(cedulaCliente);
-	     
 
 	      if (cliente.isEmpty()) {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
