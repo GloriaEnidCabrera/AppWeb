@@ -75,7 +75,7 @@ export class ClientesComponent implements OnInit {
 
   getCliente() {
     //utilizando el servicio en la url
-    this.res = this.objetohttp.get(this.urlapiCliente).pipe(catchError(this.handleError));
+    this.res = this.objetohttp.get(this.urlapiCliente+"="+this.cedulaCliente).pipe(catchError(this.handleError));
 
     //suscribe el archivo json y lo convierte  
     if (this.cedulaCliente != null) {
@@ -131,5 +131,24 @@ export class ClientesComponent implements OnInit {
     } else {
       this.msjProceso = 9;
     }
+  }
+
+  putCliente() {
+    this.res = this.objetohttp.put<any>(this.urlapiCliente+"/"+this.cedulaCliente,
+    {
+      "cedulaCliente": this.cedulaCliente,
+      "correoElectronicoCliente": this.emailCliente,
+      "direccionCliente": this.adressCliente,
+      "nombreCliente": this.nameCliente,
+      "telefonoCliente": this.telephoneCliente
+    }, { observe: 'response' }
+  ).subscribe(response => {
+    this.codigoRespuesta = response.status;
+  });
+  }
+
+  deleteCliente() {
+    this.res = this.objetohttp.delete(this.urlapiCliente+"/"+this.cedulaCliente).subscribe();
+    console.log(this.res);
   }
 }
