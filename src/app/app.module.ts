@@ -10,7 +10,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductosComponent } from './pages/productos/productos.component';
-import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ComponentsModule } from "./components/components.module";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { ClientesComponent } from "./pages/clientes/clientes.component";
@@ -21,11 +20,8 @@ import { ClientesComponent } from "./pages/clientes/clientes.component";
     AdminLayoutComponent,
     LoginComponent,
     ProductosComponent,
-<<<<<<< HEAD
-    ClientesComponent
-=======
+
     ClientesComponent,
->>>>>>> main
   ],
 
   imports: [
@@ -33,7 +29,6 @@ import { ClientesComponent } from "./pages/clientes/clientes.component";
     FormsModule,
     HttpClientModule,
     ComponentsModule,
-    //NgbModule,
     RouterModule,
     AppRoutingModule,
     DataTablesModule

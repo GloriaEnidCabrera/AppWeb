@@ -37,11 +37,6 @@ export class FileUploadService {
         let lines = reader.result as string;
 
         let separados = lines.split("\n");
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> main
         for (let lineaactual of separados) {
           for (let i = 0; i < 5; i++) {
             lineaactual = lineaactual.replace(";", ",");
