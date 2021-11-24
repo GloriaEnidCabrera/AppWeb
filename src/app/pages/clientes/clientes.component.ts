@@ -132,7 +132,7 @@ export class ClientesComponent implements OnInit {
       this.msjProceso = 9;
     }
   }
-
+  //urlapiCliente: string = "http://localhost:8080/api/clientes";
   putCliente() {
     this.res = this.objetohttp.put<any>(this.urlapiCliente+"/"+this.cedulaCliente,
     {
