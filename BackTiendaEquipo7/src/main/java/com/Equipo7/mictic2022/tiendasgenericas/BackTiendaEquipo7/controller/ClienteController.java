@@ -103,10 +103,10 @@ public class ClienteController {
 	    }
 	  }
 
-	  @DeleteMapping("/clientes/{id}")
-	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("id") String id) {
+	  @DeleteMapping("/clientes/{cedula}")
+	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("cedula") Long cedula) {
 	    try {
-	      clienteRepository.deleteById(id);
+	      clienteRepository.deleteByCedulaCliente(cedula);
 	      return new ResponseEntity<>(HttpStatus.OK);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
