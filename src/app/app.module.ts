@@ -4,13 +4,12 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { RouterModule } from "@angular/router";
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
-import { DataTablesModule } from 'angular-datatables';
+//import { DataTablesModule } from 'angular-datatables';
 //import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductosComponent } from './pages/productos/productos.component';
-import { ClientesComponent } from './pages/clientes/clientes.component';
 import { ComponentsModule } from "./components/components.module";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { ClientesComponent } from './pages/clientes/clientes.component';
@@ -32,7 +31,7 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
     //NgbModule,
     RouterModule,
     AppRoutingModule,
-    DataTablesModule
+    //DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -123,7 +123,7 @@ public class ClienteController {
 	    }
 	  }
 
-	  @GetMapping("/clientes={cedulaCliente}")
+	  @GetMapping("/clientes/{cedulaCliente}")
 	  public ResponseEntity<List<Cliente>> findByCedulaCliente(@PathVariable("cedulaCliente") Long cedulaCliente) {
 	    try {
 	    	List<Cliente> cliente = clienteRepository.findBycedulaCliente(cedulaCliente);

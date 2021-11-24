@@ -1,0 +1,12 @@
+.footer-dashboard {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer-dashboard p {
+    margin-top: 20px;
+    color: #fff;
+    font-size: 12px;
+}

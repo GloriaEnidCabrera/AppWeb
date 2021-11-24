@@ -26,21 +26,6 @@ body {
     padding: 80px 30px 30px 280px;
 }
 
-.content.main {
-    padding: 80px 30px 30px 130px;
-}
-
 .footer {
     padding: 600px 30px 30px 280px;
-}
-
-@media only screen and (max-width: 1200px) {
-    .main-panel .content {
-        padding-left: 30px;
-    }
-    .nav-open .main-panel {
-        right: 0;
-        transform: translate3d(260px,0,0);
-        transition: .5s;
-    }
 }

@@ -37,7 +37,7 @@ export class FileUploadService {
         let lines = reader.result as string;
 
         let separados = lines.split("\n");
-        
+
         for (let lineaactual of separados) {
           for (let i = 0; i < 5; i++) {
             lineaactual = lineaactual.replace(";", ",");
@@ -65,12 +65,10 @@ export class FileUploadService {
               );
           }
         }
-        console.log(this.resultados);
+        //console.log(this.resultados);
         resolve(this.resultados);
       };
       reader.readAsText(file);
     });
   }
-
-
 }
