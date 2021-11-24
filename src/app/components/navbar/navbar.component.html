@@ -1,9 +1,9 @@
 <nav class="navbar">
     <div class="navbar-bar" id="content-buttons">
-        <button id="boton-sidebar"><i class="fas fa-bars"></i></button>
-        <button id="boton-sidebar_left"><i class="fas fa-qrcode"></i></button>
+        <button id="boton-sidebar" (click)="toggle()"><i class="fas fa-bars"></i></button>
+        <button id="boton-sidebar_left" (click)="toggleLeft()"><i class="fas fa-qrcode"></i></button>
         <div class="navbar-bar_fixed">
-            <button id="boton-sidebar_fixed"><i class="fas fa-snowman"></i></button>
+            <button id="boton-sidebar_fixed" (scroll)="onScrollEvent($event)" (click)="toggles()"><i class="fas fa-snowman"></i></button>
         </div>
         <p>SNOW MARKET</p>
     </div>

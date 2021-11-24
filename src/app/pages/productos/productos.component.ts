@@ -31,6 +31,7 @@ export class ProductosComponent implements OnInit {
   recibido: boolean = false;
 
   // En caso de seleccionar archivo, escojer el primer archivo
+  //HOLA ES PRUEBA
   onChange(event: any) {
     this.file = event.target.files[0];
   }
