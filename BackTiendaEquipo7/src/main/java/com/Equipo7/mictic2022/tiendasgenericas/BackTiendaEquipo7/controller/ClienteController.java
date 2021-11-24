@@ -29,10 +29,10 @@ import com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.repository.Clie
 @RequestMapping("/api")
 
 public class ClienteController {
-	
+
 	@Autowired
 	ClienteRepository clienteRepository;
-	
+
 	@GetMapping("/clientes")
 	public ResponseEntity<List<Cliente>> getAllClientes(@RequestParam(required = false) Long cedulaCliente) {
 		try {
@@ -42,9 +42,9 @@ public class ClienteController {
 				clienteRepository.findAll().forEach(clientes::add);
 			} else {
 				clienteRepository.findBycedulaCliente(cedulaCliente).forEach(clientes::add);
-				
-				
-				
+
+
+
 			}
 
 			if (clientes.isEmpty()) {
@@ -57,8 +57,8 @@ public class ClienteController {
 		}
 
 	}
-	
-	
+
+
 	 @GetMapping("/clientes/{id}")
 	  public ResponseEntity<Cliente> getClienteById(@PathVariable("id") String id) {
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
@@ -74,7 +74,7 @@ public class ClienteController {
 	  public ResponseEntity<Cliente> createUsuario(@RequestBody Cliente user) {
 	    try {
 	      Cliente _usuario = clienteRepository.save(new Cliente(user.getCedulaCliente(),
-	    		  user.getNombreCliente(),user.getDireccionCliente(),user.getTelefonoCliente(), 
+	    		  user.getNombreCliente(),user.getDireccionCliente(),user.getTelefonoCliente(),
 	    		  user.getCorreoElectronicoCliente()));
 	      return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
 	    } catch (Exception e) {
@@ -82,7 +82,7 @@ public class ClienteController {
 	    }
 	  }
 
-	  
+
 	  @PutMapping("/clientes/{id}")
 	  public ResponseEntity<Cliente> updateCliente(@PathVariable("id") String id, @RequestBody Cliente user) {
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
@@ -94,24 +94,25 @@ public class ClienteController {
 	      _cliente.setDireccionCliente(user.getDireccionCliente());
 	      _cliente.setTelefonoCliente(user.getTelefonoCliente());
 	      _cliente.setCorreoElectronicoCliente(user.getCorreoElectronicoCliente());
-	      
-	      
-	      
+
+
+
 	      return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
 	    } else {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	  }
 
-	  @DeleteMapping("/clientes/{id}")
-	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("id") String id) {
-	    try {
-	      clienteRepository.deleteById(id);
-	      return new ResponseEntity<>(HttpStatus.OK);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	  }
+
+  @DeleteMapping("/clientes/{cedula}")
+  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("cedula") Long cedula) {
+    try {
+      clienteRepository.deleteByCedulaCliente(cedula);
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
 	  @DeleteMapping("/clientes")
 	  public ResponseEntity<HttpStatus> deleteAllClientes() {
@@ -127,7 +128,7 @@ public class ClienteController {
 	  public ResponseEntity<List<Cliente>> findByCedulaCliente(@PathVariable("cedulaCliente") Long cedulaCliente) {
 	    try {
 	    	List<Cliente> cliente = clienteRepository.findBycedulaCliente(cedulaCliente);
-	     
+
 
 	      if (cliente.isEmpty()) {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
