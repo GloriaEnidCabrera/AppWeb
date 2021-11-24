@@ -17,12 +17,12 @@ export class ClientesComponent implements OnInit {
 
   crud!: String;
 
-email ="";
-name = "";
-password = "";
-username = "";
+  email = "";
+  name = "";
+  password = "";
+  username = "";
 
-usuarios!:any;
+  usuarios!: any;
 
 
   constructor(private cabecera: ActivatedRoute, private peticiones: ClientService) {
@@ -30,18 +30,21 @@ usuarios!:any;
       this.crud = params['crud'];
 
       switch (this.crud) {
-        case "create": case "update": default:
+        case "create": case "update":
           this.flag_us = true;
           this.flag_name = true;
           this.flag_ps = true;
           this.flag_email = true;
+          this.flag_table = false;
           break;
-        case "read": case "delete":
-          this.flag_us = true;
-          this.flag_name = false;
-          this.flag_ps = false;
-          this.flag_email = false;
+          case "read": case "delete":
+            this.flag_us = true;
+            this.flag_name = false;
+            this.flag_ps = false;
+            this.flag_email = false;
+            this.flag_table = false;
           break;
+            
       }
 
     });
