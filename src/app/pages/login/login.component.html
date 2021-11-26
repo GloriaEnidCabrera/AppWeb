@@ -45,7 +45,7 @@
                         </div>
 
                         <!-- ALERTAS -->
-                        <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert">
+                        <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert" routerLinkActive="active" routerLink="/dashboard">
                             <i class="fas fa-check"></i> Acceso correcto, bienvenido.
                         </div>
                         <div *ngIf="msjProceso==0" class="alert alert-danger mt-3" role="alert">
