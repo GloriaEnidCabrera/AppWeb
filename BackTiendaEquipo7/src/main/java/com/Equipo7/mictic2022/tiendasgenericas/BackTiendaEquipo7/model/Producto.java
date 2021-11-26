@@ -3,7 +3,7 @@ package com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "usuarios")
+@Document(collection = "productos")
 public class Producto {
 
 	@Id
