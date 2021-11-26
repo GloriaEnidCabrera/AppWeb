@@ -83,8 +83,10 @@ public class ClienteController {
 	  }
 
 	  
-	  @PutMapping("/clientes/{id}")
-	  public ResponseEntity<Cliente> updateCliente(@PathVariable("id") String id, @RequestBody Cliente user) {
+	  @PutMapping("/clientes/{cedula}")
+	  public ResponseEntity<Cliente> updateCliente(@PathVariable("cedula") Long cedula, @RequestBody Cliente user) {
+		  List<Cliente> cliente =clienteRepository.findBycedulaCliente(cedula);
+		  String id = cliente.get(0).getId();
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
 
 	    if (clienteData.isPresent()) {
@@ -103,10 +105,10 @@ public class ClienteController {
 	    }
 	  }
 
-	  @DeleteMapping("/clientes/{id}")
-	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("id") String id) {
+	  @DeleteMapping("/clientes/{cedula}")
+	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("cedula") Long cedula) {
 	    try {
-	      clienteRepository.deleteById(id);
+	      clienteRepository.deleteByCedulaCliente(cedula);
 	      return new ResponseEntity<>(HttpStatus.OK);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,11 +125,10 @@ public class ClienteController {
 	    }
 	  }
 
-	  @GetMapping("/clientes/{cedulaCliente}")
+	  @GetMapping("/clientes={cedulaCliente}")
 	  public ResponseEntity<List<Cliente>> findByCedulaCliente(@PathVariable("cedulaCliente") Long cedulaCliente) {
 	    try {
 	    	List<Cliente> cliente = clienteRepository.findBycedulaCliente(cedulaCliente);
-	     
 
 	      if (cliente.isEmpty()) {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
