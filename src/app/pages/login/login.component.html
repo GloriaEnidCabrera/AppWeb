@@ -1,0 +1,62 @@
+<div class="content">
+    <div class="content-wrapper">
+        <div class="d-flex justify-content-center">
+            <div class="border border-dark">
+                <div class="shadow-login">
+                    <div class="content-title form-title bg-indigo d-flex justify-content-center align-items-center">
+                        <div class="topleft">
+                            <div class="container-img-1">
+                                <img src="assets/img/Copo.png" alt="">
+                            </div>
+                        </div>
+                        <div class="topleft">
+                            <div class="container-img-2">
+                                <img src="assets/img/Copo.png" alt="">
+                            </div>
+                        </div>
+
+                        <h2 class="">Bienvenido</h2>
+                        <div class="topleft">
+                            <div class="container-img-2">
+                                <img src="assets/img/Copo.png" alt="">
+                            </div>
+                        </div>
+                        <div class="topleft">
+                            <div class="container-img-1">
+                                <img src="assets/img/Copo.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-info">
+                        <h5 class="mt-3 mb-3">Inicio de sesión con nombre de usuario</h5>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="user" [(ngModel)]="usuario"
+                                placeholder="Usuario">
+                            <label for="user"><i class="fas fa-user me-2"></i>Usuario</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="pass" [(ngModel)]="password"
+                                placeholder="Password">
+                            <label for="floatingPassword"><i class="fas fa-key me-2"></i>Constraseña</label>
+                        </div>
+                        <!-- BOTON -->
+                        <div class="btn bg-indigo-x" (click)="login()">
+                            Iniciar Sesión
+                        </div>
+
+                        <!-- ALERTAS -->
+                        <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert" routerLinkActive="active" routerLink="/dashboard">
+                            <i class="fas fa-check"></i> Acceso correcto, bienvenido.
+                        </div>
+                        <div *ngIf="msjProceso==0" class="alert alert-danger mt-3" role="alert">
+                            <i class="fas fa-times"></i> Nombre de Usuario o Contraseña incorrectos
+                        </div>
+                        <div *ngIf="msjProceso==9" class="alert alert-warning mt-3" role="alert">
+                            <i class="fas fa-exclamation"></i> Por favor ingrese todos los campos
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
