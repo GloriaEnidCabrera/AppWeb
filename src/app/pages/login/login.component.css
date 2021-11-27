@@ -7,12 +7,12 @@
 }
 
 .bg-indigo {
-    background-color: #4b0374;
+    background-color: #03741fad;
     color: white;
 }
 
 .bg-indigo-x {
-    background-color: #4b0374;
+    background-color: #0c7403d0;
     color: white;
 }
 
@@ -22,7 +22,7 @@
 
 .content-info {
     padding: 2em;
-    background-color: rgb(31, 31, 47);
+    background-color: rgba(31, 47, 37, 0.76);
 }
 
 .content-info h5{

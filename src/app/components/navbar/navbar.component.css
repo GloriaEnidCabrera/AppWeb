@@ -15,7 +15,7 @@ nav {
 
 .navbar-bar i ,
 .navbar-options i {
-    color: #fff;
+    color: #000;
     font-size: 20px;
     margin-left: 30px;
 }
@@ -32,8 +32,11 @@ button#boton-sidebar_fixed {
 }
 
 .navbar-bar p {
-    color: #fff;
-    font-size: 14px;
+    color: rgb(6, 4, 110);
+    font-size: 40px;
+    font-style: oblique;
+    font-family: 'Times New Roman';
+    font-weight: 1000;
     text-transform: uppercase;
     margin-left: 20px;
     margin-bottom: 0px;

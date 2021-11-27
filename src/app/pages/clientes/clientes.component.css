@@ -7,12 +7,12 @@
 }
 
 .bg-indigo {
-    background-color: #4b0374;
+    background-color: #037409;
     color: white;
 }
 
 .bg-indigo-x {
-    background-color: #4b0374;
+    background-color: #037409;
     color: white;
 }
 
@@ -33,13 +33,13 @@
     text-decoration: none;
     align-items: center;
     padding: .5rem;
-    background-color:#4b0374;
+    background-color:#077403;
     border-radius: 6px;
     box-shadow: 0 0 5px 0 rgba(255, 255, 255, .2); 
 }
 
 .nav ul li a:hover {
-    background-color:rgb(125, 60, 152);
+    background-color:rgba(63, 152, 60, 0.692);
 }
 
 .nav ul li a i {
@@ -93,4 +93,8 @@
 
 .config-table > * {
     color: #fff!important;
+}
+
+.nav-item {
+
 }
