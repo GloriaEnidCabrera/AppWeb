@@ -1,7 +1,6 @@
 package com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
