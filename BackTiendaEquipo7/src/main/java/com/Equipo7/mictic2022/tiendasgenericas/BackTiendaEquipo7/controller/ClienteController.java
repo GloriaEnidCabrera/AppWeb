@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -77,6 +78,8 @@ public class ClienteController {
 	    		  user.getNombreCliente(),user.getDireccionCliente(),user.getTelefonoCliente(), 
 	    		  user.getCorreoElectronicoCliente()));
 	      return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
+	    } catch (DuplicateKeyException e) {
+			return new ResponseEntity<>(null, HttpStatus.IM_USED);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
