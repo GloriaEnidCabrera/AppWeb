@@ -1,16 +1,16 @@
 <nav class="navbar">
     <div class="navbar-bar" id="content-buttons">
-        <button id="boton-sidebar"><i class="fas fa-bars"></i></button>
-        <button id="boton-sidebar_left"><i class="fas fa-qrcode"></i></button>
+        <button id="boton-sidebar" (click)="toggle()"><i class="fas fa-bars"></i></button>
+        <button id="boton-sidebar_left" (click)="toggleLeft()"><i class="fas fa-qrcode"></i></button>
         <div class="navbar-bar_fixed">
-            <button id="boton-sidebar_fixed"><i class="fas fa-snowman"></i></button>
+            <button id="boton-sidebar_fixed" (scroll)="onScrollEvent($event)" (click)="toggles()"><i class="fas fa-snowman"></i></button>
         </div>
         <p>SNOW MARKET</p>
     </div>
 
     <div class="navbar-options">
-        <i class="fas fa-search"></i>
-        <i class="fas fa-bell"></i>
+        <i class="fas fa-search i1"></i>
+        <i class="fas fa-bell i2"></i>
         <div class="photo">
             <img src="assets/img/Snow_Small.png"/>
         </div>
