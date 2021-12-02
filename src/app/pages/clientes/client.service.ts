@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
   })
   export class ClientService {
-  
+
     //API Url
     urlapiCliente: string = "http://localhost:8080/api/clientes";
 
@@ -22,16 +22,16 @@ import { Injectable } from '@angular/core';
     }
     //Peticion Post Clientes (Create)
     postCliente(body:any){
-      return this.objetohttp.post(this.urlapiCliente, body); 
+      return this.objetohttp.post(this.urlapiCliente, body);
     }
     //Peticion Put Clientes (Update)
     putCliente(cedulaCliente:number, body:any){
       return this.objetohttp.put(this.urlapiCliente+`/${cedulaCliente}`, body);
-      
+
     }
     //Peticion Delete Clientes (Delete)
     deleteCliente(cedulaCliente:number){
       return this.objetohttp.delete(this.urlapiCliente+`/${cedulaCliente}`);
-      
+
     }
   }

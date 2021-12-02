@@ -1,3 +1,11 @@
+.clients-wrapper {
+  min-width: 471px;
+}
+
+.clients-wrapper{
+  color: #fff;
+}
+
 .row-1 {
     display: flex;
     float: left;

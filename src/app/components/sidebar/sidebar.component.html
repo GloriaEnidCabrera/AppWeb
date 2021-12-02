@@ -1,21 +1,21 @@
 <div class="main-sidebar" id="html-side">
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-wrapper">
-            <div class="logo-sb">
-                <img src="assets/img/Gorro.png" alt="">
-                <span>SNOW MARKET</span>
-            </div>
-            <div class="nav">
-                <ul>
-                    <li routerLinkActive="active" *ngFor="let menuItem of menuItems"
-                        class="{{ menuItem.class }} nav-item">
-                        <a [routerLink]="[menuItem.path]">
-                            <i class="fas {{ menuItem.icon }}"></i>
-                            <span>{{ menuItem.title }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+  <div class="sidebar" id="sidebar">
+      <div class="sidebar-wrapper">
+          <div class="logo-sb">
+              <img src="assets/img/Copo.png" alt="">
+              <span>SNOW MARKET</span>
+          </div>
+          <div class="nav">
+              <ul>
+                  <li routerLinkActive="active" *ngFor="let menuItem of menuItems"
+                      class="{{ menuItem.class }} nav-item">
+                      <a [routerLink]="[menuItem.path]">
+                          <i class="fas {{ menuItem.icon }}"></i>
+                          <span>{{ menuItem.title }}</span>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
 </div>

@@ -15,7 +15,9 @@ export const ROUTES: RouteInfo[] = [
   { path: '/clientes/read', title: 'Consultar', icon: 'fa-search', class: ''},
   { path: '/clientes/create', title: 'Crear', icon: 'fa-user-plus', class: ''},
   { path: '/clientes/update', title: 'Actualizar', icon: 'fa-user-edit', class: ''},
-  { path: '/clientes/delete', title: 'Borrar', icon: 'fa-user-times', class: ''}
+  { path: '/clientes/delete', title: 'Borrar', icon: 'fa-user-times', class: ''},
+  { path: '/clientes/listar', title: 'listar', icon: 'far fa-address-card', class: ''}
+
 ];
 
 @Component({
@@ -70,8 +72,9 @@ export class ClientesComponent implements OnInit {
             this.flag_email = false;
             this.flag_direccion = false;
             this.flag_table = false;
-          break;  
-      } 
+          break;
+
+      }
     });
    }
 
@@ -89,7 +92,7 @@ export class ClientesComponent implements OnInit {
     //window.alert(errorMessage);
     return throwError(errorMessage);
   }
-  
+
   //INICIO METODO ANGULAR DATATABLE
   ngOnInit(): void {
     this.menuCrud = ROUTES.filter(menuCrud => menuCrud);
@@ -136,7 +139,7 @@ export class ClientesComponent implements OnInit {
         }
       }
     };
-    
+
   }
   //eliminando objeto revisor de cambios de la tabla
   ngOnDestroy(): void {
@@ -158,7 +161,8 @@ export class ClientesComponent implements OnInit {
         this.peticiones.postCliente(body).subscribe(data => {
           console.log(body);
           console.log(data);
-          //this.dtTrigger.next(this.dtOptions);
+          this.dtTrigger.next(this.dtOptions);
+
         });
         break;
       case "read":
@@ -166,7 +170,7 @@ export class ClientesComponent implements OnInit {
         this.peticiones.getClienteCedula(this.cedulaCliente).subscribe(data => {
           this.contenido = data;
           console.log(data);
-          
+
           this.dtTrigger.next(this.dtOptions);
           this.dtTrigger.unsubscribe();
         });
@@ -175,15 +179,26 @@ export class ClientesComponent implements OnInit {
         this.peticiones.putCliente(this.cedulaCliente, body).subscribe(data => {
           console.log(body);
           console.log(data);
-          //this.dtTrigger.next(this.dtOptions);
+          this.dtTrigger.next(this.dtOptions);
         });
         break;
       case "delete":
         this.peticiones.deleteCliente(this.cedulaCliente).subscribe(data => {
           console.log(data);
-          //this.dtTrigger.next(this.dtOptions);
+          this.dtTrigger.next(this.dtOptions);
+        });
+        break;
+        case "listar":
+        this.flag_table = true;
+        this.peticiones.getClientes().subscribe(data => {
+          this.contenido = data;
+          console.log(data);
+
+          this.dtTrigger.next(this.dtOptions);
+
         });
         break;
     }
+
   }
 }

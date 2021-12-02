@@ -1,13 +1,16 @@
 package com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "clientes")
 public class Cliente {
 	
 	@Id
-	 private String id;
+	private String id;
+	
+	@Indexed(unique=true)
 	private Long cedulaCliente;
 	private String nombreCliente;
 	private String direccionCliente;
