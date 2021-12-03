@@ -11,5 +11,10 @@ public interface ClienteRepository extends MongoRepository<Cliente, String>{
 	
 	List <Cliente> findBycedulaCliente(Long cedulaCliente);
 	List <Cliente> findBynombreCliente(String nombreCliente);
+	
+	void deleteByCedulaCliente(Long cedulaCliente);
+	//void deleteBynombreCliente(String nombreCliente);
+	//void deleteBycorreoElectronicoCliente(String correoElectronicoCliente);
+	
 
 }
