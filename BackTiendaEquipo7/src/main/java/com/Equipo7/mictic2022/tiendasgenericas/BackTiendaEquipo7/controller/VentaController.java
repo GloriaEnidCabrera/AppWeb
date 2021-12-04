@@ -43,7 +43,7 @@ public class VentaController {
 				mayor = v.getCedulaCliente();
 			}
 		}
-		
+
 			return new ResponseEntity<>(mayor, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

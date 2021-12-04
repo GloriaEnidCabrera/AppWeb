@@ -10,14 +10,14 @@ public class Venta {
 	@Id
 	private String id;
 	private long cedulaCliente;
-	
+
 	@Indexed(unique=true)
 	private long codigoventa;
 	private ArrayList<DetalleVenta> detalleventa;
 	private double ivaventa;
 	private double totalventa;
 	private double valorventa;
-	
+
 	public Venta() {
 		this.detalleventa= new ArrayList<DetalleVenta>();
 	}

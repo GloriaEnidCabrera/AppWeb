@@ -30,7 +30,7 @@ import org.springframework.dao.DuplicateKeyException;
 @RequestMapping("/api")
 
 public class ClienteController {
-	
+
 	@Autowired
 	ClienteRepository clienteRepository;
 	//@RequestParam(required = false) Long cedulaCliente
@@ -42,8 +42,8 @@ public class ClienteController {
 				//if (cedulaCliente == null) {
 				clienteRepository.findAll().forEach(clientes::add);
 			/*} else {
-				clienteRepository.findBycedulaCliente(cedulaCliente).forEach(clientes::add);				
-						
+				clienteRepository.findBycedulaCliente(cedulaCliente).forEach(clientes::add);
+
 			}*/
 
 			if (clientes.isEmpty()) {
@@ -56,8 +56,8 @@ public class ClienteController {
 		}
 
 	}
-	
-	
+
+
 	 @GetMapping("/clientes/{id}")
 	  public ResponseEntity<Cliente> getClienteById(@PathVariable("id") String id) {
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
@@ -68,7 +68,7 @@ public class ClienteController {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	  }
-	 
+
 
 
 	  @GetMapping("/clientes={cedulaCliente}")
@@ -83,19 +83,9 @@ public class ClienteController {
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
-	  } 
-	  /* @GetMapping("/clientes/{cedula}")
-		public ResponseEntity<Cliente> getClienteByCedula(@PathVariable("cedulaCliente") Long cedulaCliente) {
-			Cliente aux=clienteRepository.findBycedulaCliente(cedulaCliente).get(0);
-			Optional<Cliente> clienteData =  Optional.of(aux);
+	  }
 
-			if (clienteData.isPresent()) {
-				return new ResponseEntity<>(clienteData.get(), HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-		}*/
-	  
+
 	  @PostMapping("/clientes")
 	  public ResponseEntity<Cliente> createCliente(@RequestBody Cliente client) {
 	    try {
@@ -103,7 +93,7 @@ public class ClienteController {
 	    		  client.getCedulaCliente(),
 	    		  client.getNombreCliente(),
 	    		  client.getDireccionCliente(),
-	    		  client.getTelefonoCliente(), 
+	    		  client.getTelefonoCliente(),
 	    		  client.getCorreoElectronicoCliente()));
 	      return new ResponseEntity<>(_cliente, HttpStatus.CREATED);
 	      //se cambio por excepcion a duplicados
@@ -116,7 +106,7 @@ public class ClienteController {
 	  }
 
 	//RECOMENDACIÓN, ENVIAR JSON SIN ID PERO EL SI ES OBLIGATORIO EN LA URL
-	  
+
 		@PutMapping("/clientes/id/{id}")
 		public ResponseEntity<Cliente> updateClienteById(@PathVariable("id") String id, @RequestBody Cliente client) {
 			Optional<Cliente> clienteData = clienteRepository.findById(id);
@@ -128,17 +118,17 @@ public class ClienteController {
 				_cliente.setCorreoElectronicoCliente(client.getCorreoElectronicoCliente());
 				_cliente.setNombreCliente(client.getNombreCliente());
 				_cliente.setTelefonoCliente(client.getTelefonoCliente());
-				
+
 				return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
 			} else {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
 		}
-		
+
 	  @PutMapping("/clientes/{cedula}")
 	  public ResponseEntity<Cliente> updateClientebyCedula(@PathVariable("cedula") Long cedula,  Cliente user) {
 		  //Cliente aux=clienteRepository.findByCedulacliente(cedula).get(0);
-		  //Optional<Cliente> clienteData =  Optional.of(aux);@RequestBody 
+		  //Optional<Cliente> clienteData =  Optional.of(aux);@RequestBody
 		  List<Cliente> cliente =clienteRepository.findBycedulaCliente(cedula);
 		  String id = cliente.get(0).getId();
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
@@ -150,9 +140,9 @@ public class ClienteController {
 	      _cliente.setDireccionCliente(user.getDireccionCliente());
 	      _cliente.setTelefonoCliente(user.getTelefonoCliente());
 	      _cliente.setCorreoElectronicoCliente(user.getCorreoElectronicoCliente());
-	      
-	      
-	      
+
+
+
 	      return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
 	    } else {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);

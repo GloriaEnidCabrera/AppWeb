@@ -13,3 +13,8 @@
 .input-group-4 {
     color: #fff;
 }
+
+.venta{
+    user-select: none;
+    color: #fff;
+}
