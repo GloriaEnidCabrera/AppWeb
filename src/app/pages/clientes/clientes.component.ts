@@ -12,6 +12,7 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
+
 export const ROUTES: RouteInfo[] = [
   { path: '/clientes/read', title: 'Consultar', icon: 'fa-search', class: '' },
   { path: '/clientes/create', title: 'Crear', icon: 'fa-user-plus', class: '' },

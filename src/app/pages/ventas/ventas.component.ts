@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../clientes/client.service';
-import { ActivatedRoute } from '@angular/router';
-import { data } from 'jquery';
 import { VentasService } from './ventas.service';
-import { ComponentFixture } from '@angular/core/testing';
 
 @Component({
   selector: 'app-ventas',
@@ -12,35 +9,39 @@ import { ComponentFixture } from '@angular/core/testing';
 })
 export class VentasComponent implements OnInit {
 
+
   //Campos Modulo Ventas
   products = [{
-    "codigoproducto": "",
+    "codigoproducto": 0,
     "ivacompra": 0,
     "nitproveedor": "",
     "nombreproducto": "",
-    "preciocompra": "",
+    "preciocompra": 0,
     "precioventa": 0
   },
   {
-    "codigoproducto": "",
+    "codigoproducto": 0,
     "ivacompra": 0,
     "nitproveedor": "",
     "nombreproducto": "",
-    "preciocompra": "",
+    "preciocompra": 0,
     "precioventa": 0
   },
   {
-    "codigoproducto": "",
+    "codigoproducto": 0,
     "ivacompra": 0,
     "nitproveedor": "",
     "nombreproducto": "",
-    "preciocompra": "",
+    "preciocompra": 0,
     "precioventa": 0
   }]
+
+  
 
   //Variable
   consecutivo!: string;
   cantidad = [0, 0, 0];
+  // cantidad!: number[];
 
   // dis = "disabled";
   totalventa: number = 0;
@@ -58,22 +59,29 @@ export class VentasComponent implements OnInit {
   //Constructor para solicitudes
   constructor(private peticionesCliente: ClientService, private ventasPeticiones: VentasService) { }
 
+  totales = {
+    "tIva": 0,
+    "tVenta": 0,
+    "tTotal": 0
+
+  }
+
   ngOnInit(): void {
   }
 
-  prueba() {
-    console.log(this.cliente.cedulaCliente.length);
-  }
+
 
   getCliente() {
-    let ll = this.peticionesCliente.getClienteCedula(1018511576);
+    let cedula = parseInt(this.cliente.cedulaCliente);
+    let ll = this.peticionesCliente.getClienteCedula(cedula);
     ll.subscribe(
       (response: any) => {
-        console.log(response.body);
         this.cliente = response.body[0];
         this.consecutivo = this.cliente.id;
       }
     )
+
+    
   }
 
   getProductoByCode(product: number, code: any) {
@@ -87,36 +95,48 @@ export class VentasComponent implements OnInit {
         "preciocompra": response.preciocompra,
         "precioventa": response.precioventa
       };
-      console.log(this.products[product]);
+     
     });
+
 
   }
 
 
-  confirmarVenta() {
+  updateTotal() {
     let listProduct = this.products.filter(product => product.nombreproducto !== "");
-    let iva = 0;
-    let totVenta = 0;
-    listProduct.forEach(product => {
-      iva += (product.ivacompra / 100) * product.precioventa;
-      totVenta += product.precioventa;
-    })
+
+    this.totales = { "tIva": 0, "tVenta": 0, "tTotal": 0 }
 
     for (let i in listProduct) {
-      iva += (listProduct[i].ivacompra / 100) * listProduct[i].precioventa * this.cantidad[i];
-      totVenta += listProduct[i].precioventa * this.cantidad[i];
+      this.totales.tVenta += listProduct[i].precioventa * this.cantidad[i];
+      this.totales.tIva += (listProduct[i].precioventa * (this.cantidad[i])) * (listProduct[i].ivacompra / 100);
+      this.totales.tTotal = this.totales.tVenta + this.totales.tIva
+
     }
+
+    this.totales.tVenta = Math.round(this.totales.tVenta);
+    this.totales.tIva = Math.round(this.totales.tIva);
+    this.totales.tTotal = Math.round(this.totales.tTotal);
+
+  }
+
+  confirmarVenta() {
+    let listProduct = this.products.filter(product => product.nombreproducto !== "");
 
     let detalles = [];
 
     for (let i in listProduct) {
 
+      let valIva = (listProduct[i].ivacompra / 100) * listProduct[i].precioventa * this.cantidad[i];
+      let valVenta = (listProduct[i].precioventa * (this.cantidad[i]));
+      let valTotal = valIva + valVenta;
+
       detalles.push({
         "cantidadproducto": this.cantidad[i],
         "codigoproducto": listProduct[i].codigoproducto,
-        "valoriva": listProduct[i].ivacompra,
-        "valortotal": listProduct[i].precioventa*this.cantidad[i]+(listProduct[i].ivacompra/100)*listProduct[i].precioventa,
-        "valorventa": listProduct[i].precioventa
+        "valoriva": valIva,
+        "valortotal": valTotal,
+        "valorventa": valVenta
       })
     }
 
@@ -124,15 +144,13 @@ export class VentasComponent implements OnInit {
       "cedulaCliente": this.cliente.cedulaCliente,
       "codigoventa": 0,
       "detalleventa": detalles,
-      "ivaventa": iva,
-      "totalventa": totVenta,
-      "valorventa": iva + totVenta
+      "ivaventa": this.totales.tIva,
+      "totalventa": this.totales.tTotal,
+      "valorventa": this.totales.tVenta
     }
 
-    console.log(venta);
 
     let save = this.ventasPeticiones.saveSale(venta);
-    save.subscribe(response => console.log(response));
   }
 
 

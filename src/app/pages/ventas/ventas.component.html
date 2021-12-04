@@ -36,6 +36,7 @@
         <div class="form-floating col-2 pe-3">
             <div class="input-group-1">
                 <label for="cproducto"><i class="fab fa-product-hunt me-2"></i>Cod. Producto</label>
+               
                 <input type="text" class="form-control mb-1" 
                 name="cproducto" id="cproducto"
                 [(ngModel)]="products[0].codigoproducto">
@@ -85,9 +86,9 @@
         <div class="form-floating col-2 pe-3">
             <div class="input-group-3">
                 <label for="cantidad"><i class="fas fa-sort-amount-up-alt me-2"></i>Cantidad</label>
-                <input type="text" class="form-control mb-1" [(ngModel)]="cantidad[0]" >
-                <input type="text" class="form-control mb-1" [(ngModel)]="cantidad[1]" *ngIf="products[0].nombreproducto !=''">
-                <input type="text" class="form-control" [(ngModel)]="cantidad[2]" *ngIf="products[1].nombreproducto !=''">
+                <input type="text" class="form-control mb-1" [(ngModel)]="cantidad[0]"  (input)="updateTotal()">
+                <input type="text" class="form-control mb-1" [(ngModel)]="cantidad[1]" *ngIf="products[0].nombreproducto !=''" (input)="updateTotal()">
+                <input type="text" class="form-control" [(ngModel)]="cantidad[2]" *ngIf="products[1].nombreproducto !=''" (input)="updateTotal()">
             </div>
         </div>
         <div class="form-floating col-3 pe-3">
@@ -110,17 +111,18 @@
     <div class="row-1 col-12">
         <div class="form-floating mb-3 mt-3 col-4 pe-3">
             <div class="venta fs-4 text-capitalize text-start">
-                Total venta: {{(cantidad[0]*products[0].precioventa)+cantidad[1]*products[1].precioventa+cantidad[2]*products[2].precioventa}}
-            </div>
+                <!-- Total venta: {{(cantidad[0]*products[0].precioventa)+cantidad[1]*products[1].precioventa+cantidad[2]*products[2].precioventa}} -->
+                Valor venta: {{totales.tVenta}}
+            </div>  
         </div>
         <div class="form-floating mb-3 mt-3 col-4 pe-3">
             <div class="venta fs-4 text-capitalize text-start">
-                Total iva: {{cantidad[0]*products[0].ivacompra*products[0].precioventa/100+cantidad[1]*products[1].ivacompra*products[0].precioventa/100+cantidad[2]*products[2].ivacompra*products[0].precioventa/100}}
+                Total iva: {{totales.tIva}}
             </div>
         </div>
         <div class="form-floating mb-3 mt-3 col-4 pe-3">
            <div class="venta fs-4 text-capitalize text-start">
-                Total con: {{(((cantidad[0]*products[0].precioventa)+cantidad[1]*products[1].precioventa+cantidad[2]*products[2].precioventa)+(cantidad[0]*products[0].ivacompra*products[0].precioventa/100+cantidad[1]*products[1].ivacompra*products[0].precioventa/100+cantidad[2]*products[2].ivacompra*products[0].precioventa/100))  }}
+                Total con: {{totales.tTotal}}
             </div>
         </div>
     </div>
