@@ -19,15 +19,27 @@
             Consultar
             </button>
         </div>
-        <div class="form-floating mb-3 mt-3 col-4 pe-3">
-            <div class="venta fs-2 text-capitalize text-start">
-                {{cliente.nombreCliente}}
-            </div>
+        <div class="form-floating mb-3 mt-3 col-3 pe-3">
+            <input type="text" 
+            class="form-control" 
+            placeholder="Nombre Cliente" 
+            name="name" 
+            id="name" 
+            value="{{cliente.nombreCliente}}"
+            disabled readonly
+            >
+            <label for="name"><i class="fas fa-user me-2"></i>Nombre Cliente</label>
         </div>
         <div class="form-floating mb-3 mt-3 col-3 pe-3">
-            <div class="venta fs-2 text-capitalize text-start">
-                {{consecutivo}}
-            </div>
+            <input type="text" 
+            class="form-control" 
+            placeholder="Consecutivo" 
+            name="consecutivo" 
+            id="consecutiv" 
+            value="{{consecutivo}}"
+            disabled readonly
+            >
+            <label for="name"><i class="fas fa-receipt me-2"></i>Consecutivo</label>
         </div>
     </div>
 </div>
@@ -133,4 +145,4 @@
         Confirmar
       </div>
     </div>
-  </div>
+</div>

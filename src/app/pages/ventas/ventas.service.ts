@@ -16,11 +16,11 @@ export class VentasService {
   //Obtener cliente por
   getProductoByCode(code: number) {
     console.log(`${this.URL}${code}`);
-    return this.http.get(`${this.URL}${code}`);
+    return this.http.get(`${this.URL}${code}`, {observe:'response'});
   }
 
-  saveSale(sale: object) {
-    return this.http.post(`${this.URL_VENTA}`, sale);
+  saveSale(sale: any) {
+    return this.http.post(`${this.URL_VENTA}`, sale, {observe:'response'});
   }
 
 

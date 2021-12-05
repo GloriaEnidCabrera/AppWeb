@@ -135,7 +135,7 @@ public class ProductoController {
       if(producto.isPresent()){
         return new ResponseEntity<Producto>(producto.get(), HttpStatus.OK);
       }
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } catch (Exception e) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
