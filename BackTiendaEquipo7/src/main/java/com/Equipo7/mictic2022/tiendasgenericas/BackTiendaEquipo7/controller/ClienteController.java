@@ -126,7 +126,7 @@ public class ClienteController {
 		}
 
 	  @PutMapping("/clientes/{cedula}")
-	  public ResponseEntity<Cliente> updateClientebyCedula(@PathVariable("cedula") Long cedula,  Cliente user) {
+	  public ResponseEntity<Cliente> updateClientebyCedula(@PathVariable("cedula") Long cedula,  @RequestBody Cliente user) {
 		  //Cliente aux=clienteRepository.findByCedulacliente(cedula).get(0);
 		  //Optional<Cliente> clienteData =  Optional.of(aux);@RequestBody
 		  List<Cliente> cliente =clienteRepository.findBycedulaCliente(cedula);

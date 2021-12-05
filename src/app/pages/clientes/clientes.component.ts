@@ -228,7 +228,7 @@ export class ClientesComponent implements OnDestroy, OnInit {
                 this.showNotification('top', 'right', 10);
                 break;
             }
-            //this.cedulaCliente = "";
+            this.cedulaCliente = "";
           });
         break;
       case "update":
