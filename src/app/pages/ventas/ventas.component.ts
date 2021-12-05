@@ -86,7 +86,10 @@ export class VentasComponent implements OnInit {
             this.showNotification('top', 'right', 7);
             this.cliente = response.body[0];
             let code = this.ventasPeticiones.getVentaConsecutivo();
-            code.subscribe((response: any) => this.consecutivo = response);
+            code.subscribe((response: any) => {
+              this.consecutivo = response
+              console.log(response);
+            });
             break;
           case 204:
             this.showNotification('top', 'right', 8);
