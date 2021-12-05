@@ -239,7 +239,7 @@ export class VentasComponent implements OnInit {
           "precioventa": 0
         }]
 
-        this.cliente =   {
+        this.cliente = {
           "cedulaCliente": "",
           "correoElectronicoCliente": "",
           "direccionCliente": "",
@@ -248,7 +248,14 @@ export class VentasComponent implements OnInit {
           "telefonoCliente": ""
         }
         this.consecutivo = "";
-        this.cantidad=[0,0,0]
+        this.cantidad = [0, 0, 0]
+        this.totales =
+        {
+          "tIva": 0,
+          "tVenta": 0,
+          "tTotal": 0
+        }
+
         break;
       case 2:
         this.toastr.warning('No se encuentra la venta', '', {
