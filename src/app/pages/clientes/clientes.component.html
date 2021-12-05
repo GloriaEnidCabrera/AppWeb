@@ -1,45 +1,76 @@
 <div class="clients-wrapper">
     <h1>CLIENTES</h1>
     <div class="content-client">
-        <div class="row-1">
-            <div class="label-1">
-                <label for="cedula">Cédula: </label>
-                <input type="text" name="cedula" id="cedula">
+
+        <div class="nav mt-3">
+            <ul>
+                <li routerLinkActive="active" *ngFor="let menuCrud of menuCrud"
+                    class="{{ menuCrud.class }} nav-item">
+                    <a [routerLink]="[menuCrud.path]">
+                        <i class="fas {{ menuCrud.icon }}"></i>
+                        <span>{{ menuCrud.title }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="row-1 mt-3">
+            <div class="form-floating mb-3 me-3" *ngIf="flag_cedula==true">
+                <input type="text" class="form-control" placeholder="Cedula" name="cedula" id="cedula" [(ngModel)]="cedulaCliente">
+                <label for="cedula"><i class="fas fa-id-card me-2"></i>Cédula</label>
             </div>
-            <div class="label-2">
-                <label for="telefono">Teléfono: </label>
-                <input type="text" name="telefono" id="telefono">
+            <div class="form-floating mb-3" *ngIf="flag_telefono==true">
+                <input type="text" class="form-control" placeholder="Teléfono" name="telefono" id="telefono" [(ngModel)]="telephoneCliente">
+                <label for="telefono"><i class="fas fa-phone-alt me-2"></i>Teléfono</label>
             </div>
         </div>
         <div class="row-2">
-            <div class="label-1">
-                <label for="name">Nombre Completo: </label>
-                <input type="text" name="name" id="name">
+            <div class="form-floating mb-3 me-3" *ngIf="flag_nombre==true">
+                <input type="text" class="form-control" placeholder="Nombre Completo" name="name" id="name" [(ngModel)]="nameCliente">
+                <label for="name"><i class="fas fa-user me-2"></i>Nombre Completo</label>
             </div>
-            <div class="label-1">
-                <label for="email">Correo Electrónico: </label>
-                <input type="email" name="email" id="email">
+            <div class="form-floating mb-3" *ngIf="flag_email==true">
+                <input type="email" class="form-control" placeholder="email" name="email" id="email" [(ngModel)]="emailCliente">
+                <label for="email"><i class="fas fa-envelope me-2"></i>Correo Electrónico</label>
             </div>
         </div>
         <div class="row-3">
-            <div class="label-1">
-                <label for="adress">Dirección: </label>
-                <input type="text" name="adress" id="adress">
+            <div class="form-floating mb-3 me-3" *ngIf="flag_direccion==true">
+                <input type="text" class="form-control" placeholder="Dirreción" name="adress" id="adress" [(ngModel)]="adressCliente">
+                <label for="adress"><i class="fas fa-map-marked-alt me-2"></i>Dirección</label>
             </div>
         </div>
-        <div class="row-4">
-                <div class="btn bg-indigo-x">
-                    <i class="fas fa-search"></i> Consultar
+        <div class="row-5">
+            <div class="d-grid gap-2 col-6 mx-auto" style="max-width: 250px;">
+                <div class="btn btn-primary" (click)="clic()">
+                    {{crud.toUpperCase()}}
                 </div>
-                <div class="btn bg-indigo-x">
-                    <i class="fas fa-user-plus"></i> Crear
-                </div>
-                <div class="btn bg-indigo-x">
-                    <i class="fas fa-user-edit"></i> Actualizar
-                </div>
-                <div class="btn bg-indigo-x">
-                    <i class="fas fa-user-times"></i> Borrar
-                </div>
+            </div>
         </div>
+        
+    </div>
+    <!-- ALERTAS -->
+    <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert">
+        <i class="fas fa-check"></i> Cédula Encontrada.
+    </div>
+    <div *ngIf="msjProceso==0" class="alert alert-danger mt-3" role="alert">
+        <i class="fas fa-times"></i> Por favor verifique el número de cédula.
+    </div>
+    <div *ngIf="msjProceso==9" class="alert alert-danger mt-3" role="alert">
+        <i class="fas fa-exclamation"></i> Para consultar por favor digite el número de cédula.
+    </div>
+    <div class="config-table mt-3" *ngIf="flag_table==true">
+        <table class="compact nowrap table table-dark table-hover" datatable [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger">
+            <tbody>
+                <tr *ngFor="let cliente of contenido" class="">
+                    <!--<td>{{cliente.id}}</td>-->
+                    <td>{{cliente.cedulaCliente}}</td>
+                    <td>{{cliente.nombreCliente}}</td>
+                    <td>{{cliente.direccionCliente}}</td>
+                    <td>{{cliente.telefonoCliente}}</td>
+                    <td>{{cliente.correoElectronicoCliente}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

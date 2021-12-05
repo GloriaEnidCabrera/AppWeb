@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.model.Cliente;
 
 import com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.repository.ClienteRepository;
+import org.springframework.dao.DuplicateKeyException;
+//import com.mongodb.DuplicateKeyException;
 
 
 @CrossOrigin(origins = "*")
@@ -29,23 +30,21 @@ import com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.repository.Clie
 @RequestMapping("/api")
 
 public class ClienteController {
-	
+
 	@Autowired
 	ClienteRepository clienteRepository;
-	
+	//@RequestParam(required = false) Long cedulaCliente
 	@GetMapping("/clientes")
-	public ResponseEntity<List<Cliente>> getAllClientes(@RequestParam(required = false) Long cedulaCliente) {
-		try {
+	public ResponseEntity<List<Cliente>> getAllClientes() {
+	try {
 			List<Cliente> clientes = new ArrayList<Cliente>();
 
-			if (cedulaCliente == null) {
+				//if (cedulaCliente == null) {
 				clienteRepository.findAll().forEach(clientes::add);
-			} else {
+			/*} else {
 				clienteRepository.findBycedulaCliente(cedulaCliente).forEach(clientes::add);
-				
-				
-				
-			}
+
+			}*/
 
 			if (clientes.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -57,8 +56,8 @@ public class ClienteController {
 		}
 
 	}
-	
-	
+
+
 	 @GetMapping("/clientes/{id}")
 	  public ResponseEntity<Cliente> getClienteById(@PathVariable("id") String id) {
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
@@ -70,21 +69,68 @@ public class ClienteController {
 	    }
 	  }
 
-	  @PostMapping("/clientes")
-	  public ResponseEntity<Cliente> createUsuario(@RequestBody Cliente user) {
+
+
+	  @GetMapping("/clientes={cedulaCliente}")
+	  public ResponseEntity<List<Cliente>> findByCedulaCliente(@PathVariable("cedulaCliente") Long cedulaCliente) {
 	    try {
-	      Cliente _usuario = clienteRepository.save(new Cliente(user.getCedulaCliente(),
-	    		  user.getNombreCliente(),user.getDireccionCliente(),user.getTelefonoCliente(), 
-	    		  user.getCorreoElectronicoCliente()));
-	      return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
+	    	List<Cliente> cliente = clienteRepository.findBycedulaCliente(cedulaCliente);
+
+	      if (cliente.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	      }
+	      return new ResponseEntity<>(cliente, HttpStatus.OK);
 	    } catch (Exception e) {
-	      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	  }
 
-	  
-	  @PutMapping("/clientes/{id}")
-	  public ResponseEntity<Cliente> updateCliente(@PathVariable("id") String id, @RequestBody Cliente user) {
+
+	  @PostMapping("/clientes")
+	  public ResponseEntity<Cliente> createCliente(@RequestBody Cliente client) {
+	    try {
+	      Cliente _cliente = clienteRepository.save(new Cliente(
+	    		  client.getCedulaCliente(),
+	    		  client.getNombreCliente(),
+	    		  client.getDireccionCliente(),
+	    		  client.getTelefonoCliente(),
+	    		  client.getCorreoElectronicoCliente()));
+	      return new ResponseEntity<>(_cliente, HttpStatus.CREATED);
+	      //se cambio por excepcion a duplicados
+	    } catch (DuplicateKeyException e) {
+			return new ResponseEntity<>(null, HttpStatus.IM_USED);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	  }
+
+	//RECOMENDACIÓN, ENVIAR JSON SIN ID PERO EL SI ES OBLIGATORIO EN LA URL
+
+		@PutMapping("/clientes/id/{id}")
+		public ResponseEntity<Cliente> updateClienteById(@PathVariable("id") String id, @RequestBody Cliente client) {
+			Optional<Cliente> clienteData = clienteRepository.findById(id);
+
+			if (clienteData.isPresent()) {
+				Cliente _cliente = clienteData.get();
+				_cliente.setCedulaCliente(client.getCedulaCliente());
+				_cliente.setDireccionCliente(client.getDireccionCliente());
+				_cliente.setCorreoElectronicoCliente(client.getCorreoElectronicoCliente());
+				_cliente.setNombreCliente(client.getNombreCliente());
+				_cliente.setTelefonoCliente(client.getTelefonoCliente());
+
+				return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		}
+
+	  @PutMapping("/clientes/{cedula}")
+	  public ResponseEntity<Cliente> updateClientebyCedula(@PathVariable("cedula") Long cedula,  Cliente user) {
+		  //Cliente aux=clienteRepository.findByCedulacliente(cedula).get(0);
+		  //Optional<Cliente> clienteData =  Optional.of(aux);@RequestBody
+		  List<Cliente> cliente =clienteRepository.findBycedulaCliente(cedula);
+		  String id = cliente.get(0).getId();
 	    Optional<Cliente> clienteData = clienteRepository.findById(id);
 
 	    if (clienteData.isPresent()) {
@@ -94,19 +140,19 @@ public class ClienteController {
 	      _cliente.setDireccionCliente(user.getDireccionCliente());
 	      _cliente.setTelefonoCliente(user.getTelefonoCliente());
 	      _cliente.setCorreoElectronicoCliente(user.getCorreoElectronicoCliente());
-	      
-	      
-	      
+
+
+
 	      return new ResponseEntity<>(clienteRepository.save(_cliente), HttpStatus.OK);
 	    } else {
 	      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	  }
 
-	  @DeleteMapping("/clientes/{id}")
-	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("id") String id) {
+	  @DeleteMapping("/clientes/{cedula}")
+	  public ResponseEntity<HttpStatus> deleteClientes(@PathVariable("cedula") Long cedula) {
 	    try {
-	      clienteRepository.deleteById(id);
+	      clienteRepository.deleteByCedulaCliente(cedula);
 	      return new ResponseEntity<>(HttpStatus.OK);
 	    } catch (Exception e) {
 	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,19 +169,6 @@ public class ClienteController {
 	    }
 	  }
 
-	  @GetMapping("/clientes/{cedulaCliente}")
-	  public ResponseEntity<List<Cliente>> findByCedulaCliente(@PathVariable("cedulaCliente") Long cedulaCliente) {
-	    try {
-	    	List<Cliente> cliente = clienteRepository.findBycedulaCliente(cedulaCliente);
-	     
 
-	      if (cliente.isEmpty()) {
-	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	      }
-	      return new ResponseEntity<>(cliente, HttpStatus.OK);
-	    } catch (Exception e) {
-	      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	  }
 
 }

@@ -20,6 +20,8 @@ body {
     border-top: 2px solid #430055;
     transition: .2s;
     float: right;
+    background-image: url(https://www.wallpaperuse.com/wallp/20-205334_m.jpg);
+    background-size: 100% 85%;
 }
 
 .content {
