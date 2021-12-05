@@ -43,7 +43,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="cliente.nombreCliente.length>0">
     <div class="row-2 col-12">
         <div class="form-floating col-2 pe-3">
             <div class="input-group-1">
@@ -62,10 +62,10 @@
                 *ngIf="products[1].nombreproducto !=''">
             </div>
         </div>
-        <div class="d-grid col-2 pe-3 text-center align-self-end">
+        <div class="d-grid col-2 pe-3 text-center align-self-end" >
             <button class="btn btn-primary mb-1" 
             type="button"
-            (click)="getProductoByCode(0, products[0].codigoproducto)">
+            (click)="getProductoByCode(0, products[0].codigoproducto)" >
                 Consultar
             </button>
             <button class="btn btn-primary mb-1" type="button"

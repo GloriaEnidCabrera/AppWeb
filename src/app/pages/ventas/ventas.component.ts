@@ -85,9 +85,9 @@ export class VentasComponent implements OnInit {
           case 200:
             this.showNotification('top', 'right', 7);
             this.cliente = response.body[0];
-            this.consecutivo = this.cliente.id;
+            let code = this.ventasPeticiones.getVentaConsecutivo();
+            code.subscribe((response: any) => this.consecutivo = response);
             break;
-
           case 204:
             this.showNotification('top', 'right', 8);
             break;
@@ -113,14 +113,7 @@ export class VentasComponent implements OnInit {
       switch (this.codegetproducto) {
         case 200:
           this.showNotification('top', 'right', 4);
-          this.products[product] = {
-            "codigoproducto": response.body.codigoproducto,
-            "ivacompra": response.body.ivacompra,
-            "nitproveedor": response.body.nitproveedor,
-            "nombreproducto": response.body.nombreproducto,
-            "preciocompra": response.body.preciocompra,
-            "precioventa": response.body.precioventa
-          };
+          this.products[product] = response.body;
           break;
 
         case 204:
@@ -173,7 +166,7 @@ export class VentasComponent implements OnInit {
 
     let venta = {
       "cedulaCliente": this.cliente.cedulaCliente,
-      "codigoventa": 102,
+      "codigoventa": this.consecutivo,
       "detalleventa": detalles,
       "ivaventa": this.totales.tIva,
       "totalventa": this.totales.tTotal,
@@ -185,7 +178,6 @@ export class VentasComponent implements OnInit {
     //save.subscribe(a=> console.log(a));
     save.subscribe((response: any) => {
 
-      console.log(response);
       this.codeventa = response.status;
 
       switch (this.codeventa) {
@@ -218,9 +210,45 @@ export class VentasComponent implements OnInit {
           disableTimeOut: false,
           enableHtml: true,
           closeButton: true,
-          //toastClass: 'alert alert-danger alert-with-icon',
           positionClass: 'toast-' + from + '-' + align
+
         });
+
+        this.products = [{
+          "codigoproducto": 0,
+          "ivacompra": 0,
+          "nitproveedor": "",
+          "nombreproducto": "",
+          "preciocompra": 0,
+          "precioventa": 0
+        },
+        {
+          "codigoproducto": 0,
+          "ivacompra": 0,
+          "nitproveedor": "",
+          "nombreproducto": "",
+          "preciocompra": 0,
+          "precioventa": 0
+        },
+        {
+          "codigoproducto": 0,
+          "ivacompra": 0,
+          "nitproveedor": "",
+          "nombreproducto": "",
+          "preciocompra": 0,
+          "precioventa": 0
+        }]
+
+        this.cliente =   {
+          "cedulaCliente": "",
+          "correoElectronicoCliente": "",
+          "direccionCliente": "",
+          "id": "",
+          "nombreCliente": "",
+          "telefonoCliente": ""
+        }
+        this.consecutivo = "";
+        this.cantidad=[0,0,0]
         break;
       case 2:
         this.toastr.warning('No se encuentra la venta', '', {

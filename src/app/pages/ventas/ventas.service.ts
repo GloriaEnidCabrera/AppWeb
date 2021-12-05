@@ -23,6 +23,8 @@ export class VentasService {
     return this.http.post(`${this.URL_VENTA}`, sale, {observe:'response'});
   }
 
-
+  getVentaConsecutivo(){
+    return this.http.get(`http://localhost:8080/api/ventas/consecutivo`);
+  }
 
 }
