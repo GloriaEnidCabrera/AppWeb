@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 import { ClientService } from './client.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 declare interface RouteInfo {
   path: string;
@@ -11,13 +12,12 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
-export const ROUTES: RouteInfo[] = [
-  { path: '/clientes/read', title: 'Consultar', icon: 'fa-search', class: ''},
-  { path: '/clientes/create', title: 'Crear', icon: 'fa-user-plus', class: ''},
-  { path: '/clientes/update', title: 'Actualizar', icon: 'fa-user-edit', class: ''},
-  { path: '/clientes/delete', title: 'Borrar', icon: 'fa-user-times', class: ''},
-  { path: '/clientes/listar', title: 'listar', icon: 'far fa-address-card', class: ''}
 
+export const ROUTES: RouteInfo[] = [
+  { path: '/clientes/read', title: 'Consultar', icon: 'fa-search', class: '' },
+  { path: '/clientes/create', title: 'Crear', icon: 'fa-user-plus', class: '' },
+  { path: '/clientes/update', title: 'Actualizar', icon: 'fa-user-edit', class: '' },
+  { path: '/clientes/delete', title: 'Borrar', icon: 'fa-user-times', class: '' }
 ];
 
 @Component({
@@ -25,7 +25,7 @@ export const ROUTES: RouteInfo[] = [
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.css']
 })
-export class ClientesComponent implements OnInit {
+export class ClientesComponent implements OnDestroy, OnInit {
   menuCrud: any[] | undefined;
   //control campos formulario
   flag_cedula: boolean = false;
@@ -33,7 +33,7 @@ export class ClientesComponent implements OnInit {
   flag_nombre: boolean = false;
   flag_email: boolean = false;
   flag_direccion: boolean = false;
-  flag_table: boolean = false;
+  flag_table: boolean = true;
   //variable crud
   crud!: String;
   //Opciones y objeto revisor de la tabla
@@ -41,8 +41,8 @@ export class ClientesComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   //camposModulo
-  cedulaCliente!: number;
-  telephoneCliente!: number;
+  cedulaCliente: string = "";
+  telephoneCliente: string = "";
   nameCliente: string = "";
   emailCliente: string = "";
   adressCliente: string = "";
@@ -50,9 +50,11 @@ export class ClientesComponent implements OnInit {
   msjProceso: number = -1;
   //variable contenedora de contenidos
   contenido: any;
+  res: any;
 
   //Constructor para solicitudes
-  constructor(private cabecera: ActivatedRoute, private peticiones: ClientService) {
+  constructor(private cabecera: ActivatedRoute, private peticiones: ClientService,
+    private toastr: ToastrService) {
     this.cabecera.params.subscribe(params => {
       this.crud = params['crud'];
 
@@ -63,20 +65,19 @@ export class ClientesComponent implements OnInit {
           this.flag_nombre = true;
           this.flag_email = true;
           this.flag_direccion = true;
-          this.flag_table = false;
+          this.flag_table = true;
           break;
-          case "read": case "delete":
-            this.flag_cedula = true;
-            this.flag_telefono = false;
-            this.flag_nombre = false;
-            this.flag_email = false;
-            this.flag_direccion = false;
-            this.flag_table = false;
+        case "read": case "delete":
+          this.flag_cedula = true;
+          this.flag_telefono = false;
+          this.flag_nombre = false;
+          this.flag_email = false;
+          this.flag_direccion = false;
+          this.flag_table = true;
           break;
-
       }
     });
-   }
+  }
 
   //FUNCIÓN DE CONTROL DE ERRORES
   handleError(error: HttpErrorResponse) {
@@ -96,14 +97,28 @@ export class ClientesComponent implements OnInit {
   //INICIO METODO ANGULAR DATATABLE
   ngOnInit(): void {
     this.menuCrud = ROUTES.filter(menuCrud => menuCrud);
-    //utilizando el servicio en la url
-    this.dtTrigger.next(this.dtOptions);
+
+    console.log(this.cedulaCliente);
+
+    try {
+      this.res = this.peticiones.getClientes();
+      this.res.subscribe(
+        (response: any) => {
+        this.contenido = response.body;
+        console.log(this.contenido);
+        this.dtTrigger.next(this.dtOptions);
+      });
+    } catch (e) {
+      console.error("BK DOWN")
+      this.contenido = []
+    }
+
     //Opciones especiales de la tabla, localización y caracteristicas
     this.dtOptions = {
       pagingType: 'full_numbers',
-      columns: [{
-        title: 'ID',
-      }, {
+      columns: [/*{
+        //title: 'ID',
+      //},*/ {
         title: 'Cedula',
       }, {
         title: 'Nombre',
@@ -139,7 +154,6 @@ export class ClientesComponent implements OnInit {
         }
       }
     };
-
   }
   //eliminando objeto revisor de cambios de la tabla
   ngOnDestroy(): void {
@@ -148,6 +162,10 @@ export class ClientesComponent implements OnInit {
   //FIN METODO ANGULAR DATATABLE
 
   //FuncionClick
+  codeget!: number;
+  codepost!: number;
+  codedelete!: number;
+  codeput!: number;
   clic() {
     let body = {
       "cedulaCliente": this.cedulaCliente,
@@ -158,47 +176,219 @@ export class ClientesComponent implements OnInit {
     }
     switch (this.crud) {
       case "create":
-        this.peticiones.postCliente(body).subscribe(data => {
-          console.log(body);
-          console.log(data);
-          this.dtTrigger.next(this.dtOptions);
+        this.peticiones.postCliente(body).subscribe(
+          (response: any) => {
 
-        });
+            console.log(response);
+            this.codepost = response.status;
+
+            switch (this.codepost) {
+              case 201:
+                this.showNotification('top', 'right', 1);
+                break;
+
+              case 226:
+                this.showNotification('top', 'right', 2);
+                break;
+
+              case 500:
+                this.showNotification('top', 'right', 3);
+                break;
+            }
+            this.cedulaCliente = "";
+            this.adressCliente = "";
+            this.emailCliente = "";
+            this.nameCliente = "";
+            this.telephoneCliente = "";
+            console.log(body);
+            //this.dtTrigger.next(this.dtOptions);
+          });
         break;
-      case "read":
-        this.flag_table = true;
-        this.peticiones.getClienteCedula(this.cedulaCliente).subscribe(data => {
-          this.contenido = data;
-          console.log(data);
 
-          this.dtTrigger.next(this.dtOptions);
-          this.dtTrigger.unsubscribe();
-        });
+      case "read":
+        //this.flag_table = true;
+        this.peticiones.getClienteCedula(Number(this.cedulaCliente)).subscribe(
+          (response: any) => {
+
+            console.log(response);
+            //this.contenido = response.body;
+            this.codeput = response.status;
+            //this.dtTrigger.next(this.dtOptions);
+
+            switch (this.codeput) {
+              case 200:
+                this.showNotification('top', 'right', 9);
+                break;
+
+              case 204:
+                this.showNotification('top', 'right', 11);
+                break;
+
+              case 404:
+                this.showNotification('top', 'right', 10);
+                break;
+            }
+            this.cedulaCliente = "";
+          });
         break;
       case "update":
-        this.peticiones.putCliente(this.cedulaCliente, body).subscribe(data => {
-          console.log(body);
-          console.log(data);
-          this.dtTrigger.next(this.dtOptions);
-        });
+        this.peticiones.putCliente(Number(this.cedulaCliente), body).subscribe(
+          (response: any) => {
+
+            console.log(response);
+            this.codeput = response.status;
+
+            switch (this.codeput) {
+              case 200:
+                this.showNotification('top', 'right', 6);
+                break;
+
+              case 224:
+                this.showNotification('top', 'right', 7);
+                break;
+
+              case 500:
+                this.showNotification('top', 'right', 8);
+                break;
+            }
+            this.cedulaCliente = "";
+            this.adressCliente = "";
+            this.emailCliente = "";
+            this.nameCliente = "";
+            this.telephoneCliente = "";
+            console.log(body);
+            //this.dtTrigger.next(this.dtOptions);
+          });
         break;
       case "delete":
-        this.peticiones.deleteCliente(this.cedulaCliente).subscribe(data => {
-          console.log(data);
-          this.dtTrigger.next(this.dtOptions);
-        });
-        break;
-        case "listar":
-        this.flag_table = true;
-        this.peticiones.getClientes().subscribe(data => {
-          this.contenido = data;
-          console.log(data);
+        this.peticiones.deleteCliente(Number(this.cedulaCliente)).subscribe(
+          (response: any) => {
 
-          this.dtTrigger.next(this.dtOptions);
 
-        });
+            console.log(response);
+            this.codedelete = response.status;
+
+            switch (this.codedelete) {
+              case 200:
+                this.showNotification('top', 'right', 4);
+                break;
+
+              case 500:
+                this.showNotification('top', 'right', 5);
+                break;
+            }
+            this.cedulaCliente = "";
+            //this.dtTrigger.next(this.dtOptions);
+          });
         break;
     }
+  }
 
+  //Notificaciones
+  showNotification(from: string, align: string, type: number) {
+    switch (type) {
+      case 1:
+        this.toastr.success('Dato creado con exito', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-success alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 2:
+        this.toastr.warning('La cédula ya se encuentra registrada', '', {
+          disableTimeOut: false,
+          enableHtml: true,
+          closeButton: true,
+          //toastClass: 'alert alert-danger alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 3:
+        this.toastr.error('Error Back', '', {
+          disableTimeOut: false,
+          enableHtml: true,
+          closeButton: true,
+          //toastClass: 'alert alert-danger alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 4:
+        this.toastr.success('Dato eliminado con exito', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-success alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 5:
+        this.toastr.error('Error al eliminar el dato', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-success alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 6:
+        this.toastr.success('Dato actualizado con exito', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-success alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 7:
+        this.toastr.warning('Error al actualizar dato, verifique que el dato exista', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-success alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+
+      case 8:
+        this.toastr.error('Error en el servidor', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-success alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 9:
+        this.toastr.success('Cliente en base de datos', 'Correcto', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-danger alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 10:
+        this.toastr.error('Error al buscar la cédula', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-danger alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      case 11:
+        this.toastr.warning('No se encuentra registrado', '', {
+          disableTimeOut: false,
+          closeButton: true,
+          enableHtml: true,
+          //toastClass: 'alert alert-danger alert-with-icon',
+          positionClass: 'toast-' + from + '-' + align
+        });
+        break;
+      default:
+        break;
+    }
   }
 }

@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { DataTablesModule } from 'angular-datatables';
+import { ToastrModule } from "ngx-toastr";
 //import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +28,7 @@ import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.compon
 
   imports: [
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     FormsModule,
     HttpClientModule,
     ComponentsModule,
