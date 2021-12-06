@@ -15,6 +15,8 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { VentasComponent } from './pages/ventas/ventas.component';
 import { ComponentsModule } from "./components/components.module";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { ConsolidacionComponent } from './pages/consolidacion/consolidacion.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.compon
     ProductosComponent,
     ClientesComponent,
     VentasComponent,
+    ReportesComponent,
+    ConsolidacionComponent,
   ],
 
   imports: [

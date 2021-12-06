@@ -13,7 +13,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/clientes/crud', title: 'Clientes', icon: 'fa-users', class: ''},
   { path: '/ventas', title: 'Ventas', icon: 'fa-comment-dollar', class: ''},
   { path: '/reportes', title: 'Reportes', icon: 'fa-chart-area', class: ''},
-  //{ path: '/consolidacion', title: 'Consolidacion', icon: 'icon-sound-wave', class: ''},
+  { path: '/consolidacion', title: 'Consolidacion', icon: 'fa-ruler-combined', class: ''},
   //{ path: '/icons', title: 'Iconos', icon: 'icon-atom', class: '' },
   //{ path: '/maps', title: 'Mapas', icon: 'icon-pin', class: '' },
   //{ path: '/notifications', title: 'Notificacioness', icon: 'icon-bell-55', class: '' },
