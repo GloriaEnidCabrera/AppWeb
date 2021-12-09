@@ -27,4 +27,8 @@ export class VentasService {
     return this.http.get(`http://localhost:8080/api/ventas/consecutivo`);
   }
 
+  getSale() {
+    return this.http.get(this.URL_VENTA,{observe:'response'});
+  }
+
 }

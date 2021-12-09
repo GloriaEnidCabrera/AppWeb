@@ -7,6 +7,8 @@ import { ClientesComponent } from 'src/app/pages/clientes/clientes.component';
 import { VentasComponent } from 'src/app/pages/ventas/ventas.component';
 import { ReportesComponent } from 'src/app/pages/reportes/reportes.component';
 import { ConsolidacionComponent } from 'src/app/pages/consolidacion/consolidacion.component';
+import { ListaclientesComponent } from 'src/app/pages/reportes/listaclientes/listaclientes.component';
+import { VentaclientesComponent } from 'src/app/pages/reportes/ventaclientes/ventaclientes.component';
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -16,5 +18,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'clientes/:crud', component: ClientesComponent },
   { path: 'ventas', component: VentasComponent },
   { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes/listaclientes', component: ListaclientesComponent },
+  { path: 'reportes/ventaclientes', component: VentaclientesComponent },
   { path: 'consolidacion', component: ConsolidacionComponent },
 ];

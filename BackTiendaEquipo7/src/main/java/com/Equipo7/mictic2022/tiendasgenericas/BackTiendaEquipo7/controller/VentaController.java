@@ -102,7 +102,7 @@ public class VentaController {
   public ResponseEntity<Venta> createVenta(@RequestBody Venta sale) {
     try {
       Venta _venta = ventaRepository.save(new Venta(sale.getCedulaCliente(), sale.getCodigoventa(),
-        sale.getDetalleventa(), sale.getIvaventa(), sale.getTotalventa(), sale.getValorventa()));
+        sale.getDetalleventa(), sale.getIvaventa(), sale.getTotalventa(), sale.getValorventa(),sale.getNombreCliente()));
       return new ResponseEntity<>(_venta, HttpStatus.CREATED);
     } catch (DuplicateKeyException e) {
       return new ResponseEntity<>(null, HttpStatus.IM_USED);
@@ -125,6 +125,7 @@ public class VentaController {
       _venta.setIvaventa(sale.getIvaventa());
       _venta.setTotalventa(sale.getTotalventa());
       _venta.setValorventa(sale.getValorventa());
+      _venta.setNombreCliente(sale.getNombreCliente());
 
       return new ResponseEntity<>(ventaRepository.save(_venta), HttpStatus.OK);
     } else {

@@ -17,16 +17,18 @@ public class Venta {
 	private double ivaventa;
 	private double totalventa;
 	private double valorventa;
+	private String nombreCliente;
 
 	public Venta() {
 		this.detalleventa= new ArrayList<DetalleVenta>();
 	}
 
 	public Venta(long cedulaCliente, long codigoventa, ArrayList<DetalleVenta> detalleventa, double ivaventa,
-			double totalventa, double valorventa) {
+			double totalventa, double valorventa, String nombreCliente ) {
 		super();
 		this.detalleventa= new ArrayList<DetalleVenta>();
 		this.cedulaCliente = cedulaCliente;
+		this.nombreCliente = nombreCliente;
 		this.codigoventa = codigoventa;
 		this.detalleventa = detalleventa;
 		this.ivaventa = ivaventa;
@@ -90,5 +92,12 @@ public class Venta {
 		this.valorventa = valorventa;
 	}
 
+	public String getNombreCliente() {
+		return nombreCliente;
+	}
+
+	public void setNombreCliente(String nombreCliente) {
+		this.nombreCliente = nombreCliente;
+	}
 }
 

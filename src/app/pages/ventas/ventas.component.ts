@@ -169,6 +169,7 @@ export class VentasComponent implements OnInit {
 
     let venta = {
       "cedulaCliente": this.cliente.cedulaCliente,
+      "nombreCliente": this.cliente.nombreCliente,
       "codigoventa": this.consecutivo,
       "detalleventa": detalles,
       "ivaventa": this.totales.tIva,

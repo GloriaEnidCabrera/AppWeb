@@ -14,12 +14,6 @@ export const ROUTES: RouteInfo[] = [
   { path: '/ventas', title: 'Ventas', icon: 'fa-comment-dollar', class: ''},
   { path: '/reportes', title: 'Reportes', icon: 'fa-chart-area', class: ''},
   { path: '/consolidacion', title: 'Consolidacion', icon: 'fa-ruler-combined', class: ''},
-  //{ path: '/icons', title: 'Iconos', icon: 'icon-atom', class: '' },
-  //{ path: '/maps', title: 'Mapas', icon: 'icon-pin', class: '' },
-  //{ path: '/notifications', title: 'Notificacioness', icon: 'icon-bell-55', class: '' },
-  //{ path: '/user', title: 'Perfil de usuario', icon: 'icon-single-02', class: ''},
-  //{ path: '/tables', title: 'Lista de tablas', icon: 'icon-puzzle-10', class: ''},
-  //{ path: '/typography', title: 'Tipografia', icon: 'icon-align-center', class: ''}
 ];
 
 @Component({

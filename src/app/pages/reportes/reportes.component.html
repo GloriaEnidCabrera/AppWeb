@@ -1,1 +1,17 @@
-<p>reportes works!</p>
+<div class="reports-wrapper">
+    <h1>REPORTES</h1>
+    <div class="content-reports">
+
+        <div class="nav mt-3">
+            <ul>
+                <li routerLinkActive="active" *ngFor="let reportesCrud of reportesCrud"
+                    class="{{ reportesCrud.class }} nav-item">
+                    <a [routerLink]="[reportesCrud.path]">
+                        <i class="fas {{ reportesCrud.icon }}"></i>
+                        <span>{{ reportesCrud.title }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

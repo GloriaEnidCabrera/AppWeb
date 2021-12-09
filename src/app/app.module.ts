@@ -17,6 +17,8 @@ import { ComponentsModule } from "./components/components.module";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { ConsolidacionComponent } from './pages/consolidacion/consolidacion.component';
+import { ListaclientesComponent } from './pages/reportes/listaclientes/listaclientes.component';
+import { VentaclientesComponent } from './pages/reportes/ventaclientes/ventaclientes.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { ConsolidacionComponent } from './pages/consolidacion/consolidacion.comp
     VentasComponent,
     ReportesComponent,
     ConsolidacionComponent,
+    ListaclientesComponent,
+    VentaclientesComponent,
   ],
 
   imports: [
