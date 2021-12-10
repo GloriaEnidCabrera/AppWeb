@@ -15,9 +15,9 @@ nav {
 
 .navbar-bar i ,
 .navbar-options i {
-    color: #fff;
-    font-size: 20px;
-    margin-left: 30px;
+  color: #e7c35d;
+  font-size: 20px;
+  margin-left: 30px;
 }
 
 .navbar-bar button {
@@ -32,13 +32,16 @@ button#boton-sidebar_fixed {
 }
 
 .navbar-bar p {
-    color: #fff;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-left: 20px;
-    margin-bottom: 0px;
-    opacity: 1;
-    transition: .6s;
+  color: #f8e097;
+  font-size: 40px;
+  font-style: oblique;
+  font-family: 'Times New Roman';
+  font-weight: 1000;
+  text-transform: uppercase;
+  margin-left: 20px;
+  margin-bottom: 0px;
+  opacity: 1;
+  transition: .6s;
 }
 
 .navbar-options {
@@ -56,4 +59,25 @@ button#boton-sidebar_fixed {
 
 .photo img {
     width: 100%;
+}
+
+button.block {
+  display: block !important;
+}
+
+.navbar-bar_fixed {
+  position: fixed;
+}
+
+.block {
+  animation: mostrarBotonFixed 1s;
+}
+
+@keyframes mostrarBotonFixed {
+  0% {
+      transform: translateY(10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
 }

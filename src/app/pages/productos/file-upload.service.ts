@@ -19,7 +19,17 @@ export class FileUploadService {
 
   // Retorna un objeto observable
   upload(file: any): Promise<any[]> {
+    
     return new Promise<any[]>((resolve, reject) => {
+      //eliminar todo antes de agregar
+      this.http.delete<any>(
+        this.baseApiUrl,{ observe: 'response' }).subscribe(
+          (response: any) => {
+            let resaux = [];
+            resaux[0] = response.status;
+            this.resultados.push(resaux);
+          }
+        );
       //leyendo el contenido
       var reader = new FileReader();
       reader.onloadend = (e) => {
@@ -27,6 +37,7 @@ export class FileUploadService {
         let lines = reader.result as string;
 
         let separados = lines.split("\n");
+
         for (let lineaactual of separados) {
           for (let i = 0; i < 5; i++) {
             lineaactual = lineaactual.replace(";", ",");
@@ -54,7 +65,7 @@ export class FileUploadService {
               );
           }
         }
-        console.log(this.resultados);
+        //console.log(this.resultados);
         resolve(this.resultados);
       };
       reader.readAsText(file);
