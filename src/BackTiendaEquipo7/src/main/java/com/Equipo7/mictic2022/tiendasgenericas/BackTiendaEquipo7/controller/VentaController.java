@@ -23,6 +23,7 @@ import com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.model.Venta;
 import com.Equipo7.mictic2022.tiendasgenericas.BackTiendaEquipo7.repository.VentaRepository;
 
 
+
 @CrossOrigin(origins = "*")
 //@CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -38,12 +39,9 @@ public class VentaController {
 		ArrayList<Venta> aux = (ArrayList<Venta>) ventaRepository.findAll();
 		long mayor = 0;
 		for (Venta v : aux) {
-			if (v.getCodigoventa() > mayor) {
-				mayor = v.getCodigoventa();
+			if (v.getCedulaCliente() > mayor) {
+				mayor = v.getCedulaCliente();
 			}
-		}
-		if (aux.isEmpty()) {
-			mayor=1;
 		}
 
 			return new ResponseEntity<>(mayor, HttpStatus.OK);
@@ -51,7 +49,7 @@ public class VentaController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@GetMapping("/ventas")
 	public ResponseEntity<List<Venta>> getAllVentas() {
 		try {
@@ -109,7 +107,7 @@ public class VentaController {
 	public ResponseEntity<Venta> createVenta(@RequestBody Venta sale) {
 		try {
 			Venta _venta = ventaRepository.save(new Venta(sale.getCedulaCliente(), sale.getCodigoventa(),
-			        sale.getDetalleventa(), sale.getIvaventa(), sale.getTotalventa(), sale.getValorventa(),sale.getNombreCliente()));
+					sale.getDetalleventa(), sale.getIvaventa(), sale.getTotalventa(), sale.getValorventa()));
 			return new ResponseEntity<>(_venta, HttpStatus.CREATED);
 		} catch (DuplicateKeyException e) {
 			return new ResponseEntity<>(null, HttpStatus.IM_USED);
