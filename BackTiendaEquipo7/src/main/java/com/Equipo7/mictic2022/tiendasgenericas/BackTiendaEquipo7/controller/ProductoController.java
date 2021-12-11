@@ -87,7 +87,7 @@ public class ProductoController {
 			_producto.setNombreproducto(user.getNombreproducto());
 			_producto.setPreciocompra(user.getPreciocompra());
 			_producto.setPrecioventa(user.getPrecioventa());
-			
+
 			return new ResponseEntity<>(productoRepository.save(_producto), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -127,5 +127,18 @@ public class ProductoController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+  @GetMapping("/productos/code/{code}")
+  public ResponseEntity<Producto> getByCode(@PathVariable("code") Long code) {
+    try {
+      Optional<Producto> producto =productoRepository.findByCodigoproducto(code);
+      if(producto.isPresent()){
+        return new ResponseEntity<Producto>(producto.get(), HttpStatus.OK);
+      }
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    } catch (Exception e) {
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 
 }

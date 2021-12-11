@@ -26,7 +26,7 @@ public class SwaggerConfig {
 
 	private ApiInfo getApiInfo() {
 		return new ApiInfo("Api test Spring-Angular-MongoDB", 
-				"Back-End Tiendas los tiburones", "1.0", "",
+				"Back-End Snow Market", "1.0", "",
 				new Contact("", "", ""), "", "", Collections.emptyList());
 	}
 }
