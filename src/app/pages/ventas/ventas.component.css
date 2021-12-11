@@ -1,0 +1,32 @@
+.clients-wrapper {
+  min-width: 600px;
+}
+
+.clients-wrapper{
+  color: #fff;
+}
+.row-1 {
+    display: flex;
+    float: left;
+}
+.row-2 {
+    display: flex;
+    float: left;
+}
+
+.input-group-1,
+.input-group-2,
+.input-group-3,
+.input-group-4 {
+    color: #fff;
+}
+
+.venta{
+    user-select: none;
+    color: #fff;
+}
+
+.opciones{
+  min-height: 45px;
+}
+

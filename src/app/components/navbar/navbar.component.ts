@@ -7,9 +7,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
   constructor() { }
-
   ngOnInit(): void {
   }
 
@@ -58,4 +56,3 @@ export class NavbarComponent implements OnInit {
     //console.log("scrolling");
   }
 }
-

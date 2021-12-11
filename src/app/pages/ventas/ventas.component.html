@@ -1,0 +1,168 @@
+<div class="clients-wrapper">
+  <h1>VENTAS</h1>
+  <div class="content-client"></div>
+</div>
+
+<div class="row -1">
+  <div class="form-grup mb-3 mt-3 col-3 pe-3">
+    <select [(ngModel)]="ciudad" required aria-label="select example">
+      <option value="0">Seleccione la ciudad</option>
+      <option value="1">Bogotá</option>
+      <option value="2">Medellín</option>
+      <option value="3">Cali</option>
+    </select>
+  </div>
+  <div class="d-grid col-2 pe-3 text-center align-self-center">
+    <!--button class="btn btn-primary" type="button" (click)="postconsolidado()">Ingresar</button-->
+  </div>
+  <div class="venta fs-2 text-capitalize text-start col-auto">{{ciudadtexto[ciudad-1]}}</div>
+</div>
+
+<div class="row">
+  <div class="row-1 col-12">
+      <div class="form-floating mb-3 mt-3 col-3 pe-3">
+          <input type="text"
+          class="form-control"
+          placeholder="Cedula"
+          name="cedula"
+          id="cedula"
+          [(ngModel)]="cliente.cedulaCliente"
+          >
+          <label for="cedula"><i class="fas fa-id-card me-2"></i>Cédula</label>
+      </div>
+      <div class="d-grid col-2 pe-3 text-center align-self-center">
+          <button class="btn btn-primary"
+          type="button"
+
+          (click)="getCliente()"
+          >
+          Consultar
+          </button>
+      </div>
+      <div class="form-floating mb-3 mt-3 col-3 pe-3">
+          <input type="text"
+          class="form-control"
+          placeholder="Nombre Cliente"
+          name="name"
+          id="name"
+          value="{{cliente.nombreCliente}}"
+          disabled readonly
+          >
+          <label for="name"><i class="fas fa-user me-2"></i>Nombre Cliente</label>
+      </div>
+      <div class="form-floating mb-3 mt-3 col-3 pe-3">
+          <input type="text"
+          class="form-control"
+          placeholder="Consecutivo"
+          name="consecutivo"
+          id="consecutiv"
+          value="{{consecutivo}}"
+          disabled readonly
+          >
+          <label for="name"><i class="fas fa-receipt me-2"></i>Consecutivo</label>
+      </div>
+  </div>
+</div>
+<div class="row" *ngIf="cliente.nombreCliente.length>0">
+  <div class="row-2 col-12">
+      <div class="form-floating col-2 pe-3">
+          <div class="input-group-1">
+              <label for="cproducto"><i class="fab fa-product-hunt me-2"></i>Cod. Producto</label>
+
+              <input type="text" class="form-control mb-1"
+              name="cproducto" id="cproducto"
+              [(ngModel)]="products[0].codigoproducto">
+              <input type="text" class="form-control mb-1"
+              name="cproducto"
+              [(ngModel)]="products[1].codigoproducto"
+              *ngIf="products[0].nombreproducto !=''">
+              <input type="text" class="form-control"
+              name="cproducto"
+              [(ngModel)]="products[2].codigoproducto"
+              *ngIf="products[1].nombreproducto !=''">
+          </div>
+      </div>
+      <div class="d-grid col-2 pe-3 text-center align-self-end" >
+          <button class="btn btn-primary mb-1"
+          type="button"
+          (click)="getProductoByCode(0, products[0].codigoproducto)" >
+              Consultar
+          </button>
+          <button class="btn btn-primary mb-1" type="button"
+          (click)="getProductoByCode(1, products[1].codigoproducto)"
+          *ngIf="products[0].nombreproducto !=''">
+              Consultar
+          </button>
+          <button class="btn btn-primary"
+          type="button"
+          (click)="getProductoByCode(2, products[2].codigoproducto)"
+          *ngIf="products[1].nombreproducto !=''">
+              Consultar
+          </button>
+      </div>
+      <div class="form-floating col-3 pe-3">
+          <div class="input-group-2">
+              <label for="nproducto"><i class="fas fa-shopping-cart me-2"></i>Nombre Producto</label>
+              <div class="venta fs-5 text-capitalize text-start mt-1">
+                  {{products[0].nombreproducto}}
+              </div>
+              <div class="venta fs-5 text-capitalize text-start mt-2" *ngIf="products[0].nombreproducto !=''">
+                  {{products[1].nombreproducto}}
+              </div>
+              <div class="venta fs-5 text-capitalize text-start mt-2" *ngIf="products[1].nombreproducto !=''">
+                  {{products[2].nombreproducto}}
+              </div>
+
+          </div>
+      </div>
+      <div class="form-floating col-2 pe-3">
+          <div class="input-group-3">
+              <label for="cantidad"><i class="fas fa-sort-amount-up-alt me-2"></i>Cantidad</label>
+              <input type="text" class="form-control mb-1" [(ngModel)]="cantidad[0]"  (input)="updateTotal()">
+              <input type="text" class="form-control mb-1" [(ngModel)]="cantidad[1]" *ngIf="products[0].nombreproducto !=''" (input)="updateTotal()">
+              <input type="text" class="form-control" [(ngModel)]="cantidad[2]" *ngIf="products[1].nombreproducto !=''" (input)="updateTotal()">
+          </div>
+      </div>
+      <div class="form-floating col-3 pe-3">
+          <div class="input-group-4">
+              <label for="vlrtotal"><i class="fas fa-coins me-2"></i>Vlr. Total</label>
+              <div class="venta fs-5 text-capitalize text-start mt-1">
+                  {{products[0].precioventa*cantidad[0]}}
+              </div>
+              <div class="venta fs-5 text-capitalize text-start mt-2" *ngIf="products[0].nombreproducto !=''">
+                  {{products[1].precioventa*cantidad[1]}}
+              </div>
+              <div class="venta fs-5 text-capitalize text-start mt-2" *ngIf="products[1].nombreproducto !=''">
+                  {{products[2].precioventa*cantidad[2]}}
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="row-1 col-12">
+      <div class="form-floating mb-3 mt-3 col-4 pe-3">
+          <div class="venta fs-4 text-capitalize text-start">
+              <!-- Total venta: {{(cantidad[0]*products[0].precioventa)+cantidad[1]*products[1].precioventa+cantidad[2]*products[2].precioventa}} -->
+              Valor venta: {{totales.tVenta}}
+          </div>
+      </div>
+      <div class="form-floating mb-3 mt-3 col-4 pe-3">
+          <div class="venta fs-4 text-capitalize text-start">
+              Total iva: {{totales.tIva}}
+          </div>
+      </div>
+      <div class="form-floating mb-3 mt-3 col-4 pe-3">
+         <div class="venta fs-4 text-capitalize text-start">
+              Total venta: {{totales.tTotal}}
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <div class="btn btn-primary" (click)="confirmarVenta()" *ngIf="totales.tTotal>0">
+      Confirmar
+    </div>
+  </div>
+</div>

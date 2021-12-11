@@ -9,18 +9,24 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { LoginComponent } from '../../pages/login/login.component';
 import { ProductosComponent } from 'src/app/pages/productos/productos.component';
 import { ClientesComponent } from 'src/app/pages/clientes/clientes.component';
-//import { VentasComponent } from 'src/app/pages/ventas/ventas.component';
-//import { ReportesComponent } from 'src/app/pages/reportes/reportes.component';
-//import { ConsolidacionComponent } from 'src/app/pages/consolidacion/consolidacion.component';
+import { VentasComponent } from 'src/app/pages/ventas/ventas.component';
+import { ReportesComponent } from 'src/app/pages/reportes/reportes.component';
+import { ConsolidacionComponent } from 'src/app/pages/consolidacion/consolidacion.component';
+import { ListaclientesComponent } from 'src/app/pages/reportes/listaclientes/listaclientes.component';
+import { VentaclientesComponent } from 'src/app/pages/reportes/ventaclientes/ventaclientes.component';
+
 
 export const AdminLayoutRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'productos', component: ProductosComponent },
-  { path: 'clientes', component: ClientesComponent },
-  //{ path: 'ventas', component: VentasComponent },
-  //{ path: 'reportes', component: ReportesComponent },
-  //{ path: 'consolidacion', component: ConsolidacionComponent },
+  //{ path: 'clientes', component: ClientesComponent },
+  { path: 'clientes/:crud', component: ClientesComponent },
+  { path: 'ventas', component: VentasComponent },
+  { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes/listaclientes', component: ListaclientesComponent },
+  { path: 'reportes/ventaclientes', component: VentaclientesComponent },
+  { path: 'consolidacion', component: ConsolidacionComponent },
   //{ path: 'icons', component: IconsComponent },
   //{ path: 'notifications', component: NotificationsComponent },
   //{ path: 'user', component: UserComponent },

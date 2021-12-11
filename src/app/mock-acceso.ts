@@ -7,7 +7,7 @@ export const ACCESOS: Acceso[] = [
     { user: 'Gloria', password: 'admin' },
     { user: 'Claudia', password: 'admin' },
     { user: 'Javier', password: 'admin' },
-    { user: 'Anonimo', password: 'admin' },
+    { user: 'Andrea', password: 'admin' },
 ];
 
 

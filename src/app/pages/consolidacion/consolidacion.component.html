@@ -1,0 +1,30 @@
+<div class="clients-wrapper">
+  <h1>CONSOLIDACION</h1>
+  <div class="content-client"></div>
+</div>
+
+<div class="config-table mt-3">
+  <table class="compact nowrap table table-dark table-hover" datatable [dtOptions]="dtOptions"
+      [dtTrigger]="dtTrigger">
+      <tbody>
+          <tr *ngFor="let consolidar of contenido" class="">
+              <!--<td>{{cliente.id}}</td>-->
+              <td>{{consolidar.ciudad}}</td>
+              <td>{{consolidar.totalventas
+              }}</td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+<!--div class="form-floating mb-3 mt-3 col-3 pe-3">
+  <input type="text"
+  class="form-control"
+  placeholder="Total Ventas Tienda $"
+  name="name"
+  id="name"
+  value="{{contenido.totalventas}}"
+  disabled readonly
+  >
+  <label for="name"><i class="fas fa-user me-2"></i>Total Ventas Tienda $</label>
+</div-->

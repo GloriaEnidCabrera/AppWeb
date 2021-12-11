@@ -1,0 +1,31 @@
+.clients-wrapper {
+  min-width: 471px;
+}
+
+.clients-wrapper{
+  color: #fff;
+}
+.row-1 {
+    display: flex;
+    float: left;
+}
+.row-2 {
+    display: flex;
+    float: left;
+}
+
+h3 {
+    color: #fff;
+    padding: .5rem;
+}
+
+.config-table {
+    background-color: rgb(250, 250, 252) !important;
+    box-shadow: 0 0 20px 0 rgba(255, 255, 255, .2);
+    color: #fff!important;
+
+}
+
+.config-table > * {
+    color: #fff!important;
+}

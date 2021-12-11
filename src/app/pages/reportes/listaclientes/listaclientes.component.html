@@ -1,0 +1,20 @@
+
+  <app-reportes></app-reportes>
+
+  <h3>LISTADO DE CLIENTES</h3>
+
+  <div class="config-table mt-3">
+      <table class="compact nowrap table table-dark table-hover" datatable [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger">
+          <tbody>
+              <tr *ngFor="let cliente of contenido" class="">
+                  <!--<td>{{cliente.id}}</td>-->
+                  <td>{{cliente.cedulaCliente}}</td>
+                  <td>{{cliente.nombreCliente}}</td>
+                  <td>{{cliente.direccionCliente}}</td>
+                  <td>{{cliente.telefonoCliente}}</td>
+                  <td>{{cliente.correoElectronicoCliente}}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>

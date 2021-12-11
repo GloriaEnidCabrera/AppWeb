@@ -37,7 +37,7 @@
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="pass" [(ngModel)]="password"
                                 placeholder="Password">
-                            <label for="floatingPassword"><i class="fas fa-key me-2"></i>Constraseña</label>
+                            <label for="floatingPassword"><i class="fas fa-key me-2"></i>Contraseña</label>
                         </div>
                         <!-- BOTON -->
                         <div class="btn bg-indigo-x" (click)="login()">
@@ -45,7 +45,7 @@
                         </div>
 
                         <!-- ALERTAS -->
-                        <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert">
+                        <div *ngIf="msjProceso==1" class="alert alert-success mt-3" role="alert" routerLinkActive="active" routerLink="/dashboard">
                             <i class="fas fa-check"></i> Acceso correcto, bienvenido.
                         </div>
                         <div *ngIf="msjProceso==0" class="alert alert-danger mt-3" role="alert">

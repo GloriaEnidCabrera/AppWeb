@@ -1,0 +1,15 @@
+<div class="clients-wrapper">
+  <h1>REPORTES</h1>
+  <div class="content-client"></div>
+</div>
+<div class="nav mt-3">
+  <ul>
+      <li routerLinkActive="active" *ngFor="let reportesCrud of reportesCrud"
+          class="{{ reportesCrud.class }} nav-item">
+          <a [routerLink]="[reportesCrud.path]">
+              <i class="fas {{ reportesCrud.icon }}"></i>
+              <span>{{ reportesCrud.title }}</span>
+          </a>
+      </li>
+  </ul>
+</div>

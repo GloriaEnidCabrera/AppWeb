@@ -1,97 +1,99 @@
 nav {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 35px 0px 20px;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 35px 0px 20px;
 }
-
 .navbar-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
-
 .navbar-bar i ,
 .navbar-options i {
-    color: #fff;
-    font-size: 20px;
-    margin-left: 30px;
+  color: #ffffff;
+  font-size: 20px;
+  margin-left: 30px;
 }
-
 .navbar-bar button {
-    background-color: transparent;
-    border: none;
-    outline: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
-
 button#boton-sidebar_left,
 button#boton-sidebar_fixed {
-    display: none;
+  display: none;
 }
-
 .navbar-bar p {
-    color: #fff;
-    font-size: 14px;
-    text-transform: uppercase;
-    margin-left: 20px;
-    margin-bottom: 0px;
-    opacity: 1;
-    transition: .6s;
+  color: #f3ca4c;
+  font-size: 40px;
+  font-style: oblique;
+  font-family: 'Times New Roman';
+  font-weight: 1000;
+  text-transform: uppercase;
+  margin-left: 20px;
+  margin-bottom: 0px;
+  opacity: 1;
+  transition: .6s;
 }
-
 .navbar-options {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 .navbar-options .photo{
-    width: 20px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-left: 30px;
+  width: 20px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 30px;
+}
+.navbar-options .i1 {
+  color: rgb(243, 243, 103);
+}
+.navbar-options .i2 {
+  color: rgb(255, 95, 95);
 }
 
 .photo img {
-    width: 100%;
+  width: 100%;
 }
 
 button.block {
-    display: block !important;
+  display: block !important;
 }
 
 .navbar-bar_fixed {
-    position: fixed;
+  position: fixed;
 }
 
 .block {
-    animation: mostrarBotonFixed 1s;
+  animation: mostrarBotonFixed 1s;
 }
 
 @keyframes mostrarBotonFixed {
-    0% {
-        transform: translateY(10px);
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+      transform: translateY(10px);
+  }
+  100% {
+      transform: translateY(0);
+  }
 }
 
 .navbar-bar.none button#boton-sidebar,
 .navbar-bar.none p{
-    display: none;
+  display: none;
 }
 
 @media only screen and (max-width: 1200px) {
-    .navbar-bar_fixed button {
-        display: none !important;
-    }
-    .navbar-bar button#boton-sidebar {
-        display: none;
-    }
-    .navbar-bar button#boton-sidebar_left {
-        display: block !important;
-    }
+  .navbar-bar_fixed button {
+      display: none !important;
+  }
+  .navbar-bar button#boton-sidebar {
+      display: none;
+  }
+  .navbar-bar button#boton-sidebar_left {
+      display: block !important;
+  }
 }
